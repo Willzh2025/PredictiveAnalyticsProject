@@ -1,17 +1,28 @@
-# 🚗 Predicting Used Car Prices with Machine Learning
+# 🚗 Predictive Modeling for Used Car Pricing  
+*A Machine Learning Project*
 
-This project was completed for **ISOM 835: Predictive Analytics**. It aims to build a robust machine learning model to accurately estimate the selling price of used vehicles using historical transaction data and vehicle features.
+---
+
+## 📌 Project Overview
+
+This project applies machine learning to help used car dealerships optimize pricing strategies.  
+Using a comprehensive dataset of historical vehicle transactions, the objective is to develop predictive models that estimate the fair market value of a used car based on key features, including:
+
+- Make, model, and year  
+- Condition and odometer reading  
+- Manheim Market Report (MMR) value  
+- Final selling price
+
+By leveraging supervised regression techniques, the project aims to identify the most influential pricing factors, evaluate model accuracy, and assess generalizability across different vehicle categories. The ultimate goal is to provide actionable insights to support data-driven pricing and inventory decisions.
 
 ---
 
-## 🎯 Project Objectives
+## 🎯 Expected Outcomes
 
-- Identify which features most significantly affect used car prices.
-- Build and evaluate ML regression models to predict vehicle prices.
-- Analyze feature importance and residuals to improve model transparency.
-- Provide actionable insights to support smarter pricing and inventory strategies for car dealerships.
-
----
+- **Identify the most influential features** — such as MMR, condition, and odometer — that drive used vehicle pricing decisions.  
+- **Build and evaluate high-performing ML models** (e.g., XGBoost, LightGBM) to accurately predict vehicle selling prices with minimal error.  
+- **Assess model fairness and generalization** across key subgroups (e.g., SUVs vs. others, Japanese vs. non-Japanese brands), ensuring pricing models are reliable and unbiased.  
+- **Provide data-driven recommendations** to support smarter pricing, inventory sourcing, and model deployment in real-world business settings.
 
 ## 📊 Dataset
 
