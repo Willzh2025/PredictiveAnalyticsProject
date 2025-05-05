@@ -39,6 +39,4 @@ Below is the Google Colab notebook used for this project, organized by major ste
 - Run all cells sequentially  
 - Make sure the required libraries (`scikit-learn`, `lightgbm`, `xgboost`, `joblib`) are installed in your Colab environment
 
----
 
-📌 [Back to Main Project Overview (README)](README.md)
