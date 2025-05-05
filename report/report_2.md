@@ -160,7 +160,7 @@ These distributions provide important context for understanding the dataset comp
 - **Odometer**: Positively skewed; most vehicles have mileage under 100,000 miles, but some outliers exceed 900,000.
 - **MMR (Market Benchmark Price)**: Also right-skewed, with values typically between \$5,000 and \$25,000.
 
-![Categorical Feature Distributions](../visualizations/Distributions_of_sellingprice_odometer_and_mmr.png)
+![Distribution of Key Numerical Variables](../visualizations//Distributions_of_sellingprice_odometer_ and_mmr.png)
 
 ---
 
