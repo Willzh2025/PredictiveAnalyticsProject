@@ -97,3 +97,124 @@ This project demonstrates the power of machine learning in predicting used vehic
 **[Your Name]**  
 MSBA Candidate, Suffolk University  
 Date: May 2025
+
+
+
+
+**Used Car Price Prediction Report**
+
+---
+
+### 📈 Business Question 1: Which factors most significantly influence the selling price of used vehicles?
+
+To determine the most important predictors of used vehicle prices, we examined feature importances across top-performing models. All models unanimously identify **MMR (Manheim Market Report)** as the dominant feature.
+
+#### • Key Feature Importance Findings:
+
+* **MMR Value** accounts for over **99%** of importance in models like XGBoost and Gradient Boosting.
+
+  * Strong correlation between MMR and actual selling price.
+  * Confirms MMR is a reliable pricing anchor.
+
+* **Secondary Features** (all <1% importance):
+
+  * **Condition**: Slight influence; better condition has minor positive impact.
+  * **Odometer**: Lower mileage correlates with slightly higher price.
+  * **Year**: Newer cars tend to be priced higher, marginally.
+  * **Other features** (e.g., color, brand, body type) have **negligible predictive power** (<0.01%).
+
+#### • Business Implication:
+
+> Use MMR as the core reference for setting vehicle prices. Other features can be used for segmentation, marketing, and inventory decisions.
+
+---
+
+### 🔢 Business Question 2: How accurately can the selling price of a vehicle be predicted based on its features?
+
+Model performance was evaluated using R^2, RMSE, MAE, and overfit gap. Top ensemble-based models showed high accuracy and minimal overfitting.
+
+#### • Top 3 Performing Models:
+
+| Model Type        | R^2 (Test) | RMSE   | MAE    | Overfit Gap |
+| ----------------- | ---------- | ------ | ------ | ----------- |
+| Gradient Boosting | 0.9764     | 0.1534 | 0.1008 | 0.00089     |
+| LightGBM          | 0.9763     | 0.1536 | 0.1008 | 0.00079     |
+| HistGBM           | 0.9763     | 0.1538 | 0.1012 | 0.00015     |
+
+* **Linear Regression** underperformed with R^2 = 0.9746 and higher error metrics.
+* Residual plots and distributions show:
+
+  * Errors are symmetrically centered around zero.
+  * No major heteroscedasticity.
+  * Residuals are not normally distributed (Shapiro-Wilk p < 0.001).
+
+#### • Business Implication:
+
+> Ensemble models generalize well and offer strong predictive performance. The Gradient Boosting Regressor is the most suitable model for production deployment.
+
+---
+
+### 🔎 Business Question 3: How well does the predictive model generalize across different vehicle categories or brands?
+
+Performance analysis across vehicle **categories (SUV vs Other)** and **brands (Japanese vs Other)** reveals strong generalization with minor gaps:
+
+#### • By Vehicle Type:
+
+| Category            | MAE    | R^2    | Count  |
+| ------------------- | ------ | ------ | ------ |
+| SUVs and Crossovers | 0.1042 | 0.9782 | 30,259 |
+| Other Vehicles      | 0.0990 | 0.9750 | 59,990 |
+
+* Slightly **higher error variance** for SUVs.
+* Model slightly better on non-SUVs due to **more stable pricing**.
+
+#### • By Brand:
+
+| Brand          | MAE    | R^2    | Count  |
+| -------------- | ------ | ------ | ------ |
+| Japanese Brand | 0.0958 | 0.9718 | 29,836 |
+| Other          | 0.1032 | 0.9778 | 60,413 |
+
+* **Tighter residual distribution** for Japanese brands.
+* Indicates **more standardized resale behavior**.
+
+#### • Combined Group Summary:
+
+| Group             | MAE    | R^2    | Count  |
+| ----------------- | ------ | ------ | ------ |
+| Japanese Brand    | 0.0958 | 0.9718 | 29,836 |
+| Other Brand       | 0.1032 | 0.9778 | 60,413 |
+| SUVs & Crossovers | 0.1042 | 0.9782 | 30,259 |
+| Other Vehicles    | 0.0990 | 0.9750 | 59,990 |
+
+#### • Error Outliers:
+
+* Top 10 prediction errors came from the "Other" category.
+* Likely due to:
+
+  * Rare models or configurations.
+  * Market price volatility.
+  * Potential data quality issues.
+
+#### • Supporting Visuals:
+
+* Residual vs. Predicted scatterplots
+* Residual KDE and boxplots by category and brand
+* Performance bar charts
+* Table of top 10 worst residuals
+
+#### • Business Implication:
+
+> The model is fair and effective across subgroups. Additional adjustments may be considered for rare vehicle types or volatile segments.
+
+---
+
+### 🔮 Conclusion:
+
+* **MMR** is the core driver of used vehicle prices.
+* **Gradient Boosting** model offers highest accuracy and generalizability.
+* Model generalizes well across brands and vehicle types, with some variance in SUVs and non-standard brands.
+* The system is **robust, fair, and ready** for production use with minor caution for outlier vehicles.
+
+---
+
