@@ -136,6 +136,30 @@ The ultimate goal is to deliver actionable insights that support smarter, data-d
 
 ## Exploratory Data Analysis (EDA)
 
+### Categorical Feature Distributions
+
+The following chart presents the frequency distributions of key categorical features in the dataset:
+
+![Categorical Feature Distributions](visualizations/Categorical Feature Distributions.png)
+
+#### Key Takeaways:
+
+- **Make**: Ford, Chevrolet, and Nissan are the most frequently listed brands, representing a large portion of the dataset.
+- **Body Type**: Sedans and SUVs dominate the vehicle body types, while coupes, convertibles, and wagons are less common.
+- **Transmission**: Most vehicles use automatic transmission, suggesting potential simplification in modeling.
+- **State**: Florida and California contribute the most records, indicating possible regional market trends.
+- **Country of Origin**: Vehicles from the U.S. and Japan lead the dataset, with Germany a distant third.
+- **Exterior & Interior Colors**: Black, white, and gray are dominant for both exterior and interior colors, suggesting consumer preferences.
+- **Year Distribution**: The bulk of the vehicles were manufactured between 2010 and 2015, reflecting recency in resale activity.
+
+These distributions provide important context for understanding the dataset composition and help inform preprocessing steps (e.g., rare category consolidation).
+
+
+
+
+
+
+
 ### 1. Variable Distributions
 
 - **Vehicle Year**: Most vehicles are manufactured between 2007 and 2015, with a peak around 2012.
