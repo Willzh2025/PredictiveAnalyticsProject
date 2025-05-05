@@ -32,17 +32,20 @@ This project was developed for **ISOM 835: Predictive Analytics**. It explores h
 
 ---
 
-## ⚙️ Model Training & Evaluation
+## 📈 Best Model Performance Summary
 
-After data cleaning and preprocessing, several ML models were trained and compared. The best performance was achieved by the **XGBoost** model:
+The Gradient Boosting Regressor (GBR) achieved the best predictive performance among all models evaluated. It balanced high accuracy with low overfitting, making it the most reliable model for this use case.
 
-| Metric       | Value     |
-|--------------|-----------|
-| R² (Test)    | 0.9762    |
-| RMSE (Test)  | 0.1542    |
-| MAE (Test)   | 0.1014    |
+| Model                     | Test R² | Test RMSE | Test MAE | Overfit Gap |
+|--------------------------|---------|-----------|----------|--------------|
+| Gradient Boosting (GBR)  | **0.9764** | 0.1534    | 0.1008   | 0.0009       |
 
-Other models like LightGBM and HistGradientBoosting also performed similarly well.
+- **Test R²** of 0.9764 indicates excellent fit and strong predictive power.
+- **Overfit Gap** (Train R² - Test R²) is only 0.0009, suggesting minimal overfitting.
+- **MAE** and **RMSE** values are low, showing accurate average predictions and low error dispersion.
+
+✅ **Conclusion:**  
+Gradient Boosting not only outperforms other models in accuracy, but also demonstrates excellent generalizability—making it well-suited for deployment in pricing applications.
 
 ---
 
