@@ -140,7 +140,7 @@ The ultimate goal is to deliver actionable insights that support smarter, data-d
 
 The following chart presents the frequency distributions of key categorical features in the dataset:
 
-![Categorical Feature Distributions](visualizations/Categorical Feature Distributions.png)
+![Categorical Feature Distributions](visualizations/Categorical_Feature_Distributions.png)
 
 #### Key Takeaways:
 
