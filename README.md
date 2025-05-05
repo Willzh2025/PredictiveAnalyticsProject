@@ -89,4 +89,6 @@ You can include a final report PDF or markdown summary here once it’s ready:
 **Willzh2025**  
 MSBA Candidate, Suffolk University  
 
-📘 View full notebook links and instructions here: [notebook_link.md](./notebook_link.md)
+---
+
+📘 **View full notebook links and instructions here:** [notebook_link.md](notebook_link.md)
