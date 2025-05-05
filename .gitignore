@@ -1,1 +1,26 @@
+# ========================================
+# Python cache and environment
+# ========================================
+__pycache__/
+*.py[cod]
+*.pkl
+*.joblib
+*.json
+*.log
+.env
 
+# ========================================
+# Colab / Jupyter notebook temp files
+# ========================================
+.ipynb_checkpoints/
+
+# ========================================
+# Mac system files
+# ========================================
+.DS_Store
+
+# ========================================
+# Data files: ignore all CSVs except final dataset
+# ========================================
+data/*.csv
+!data/final_selected_features_car_prices.csv
