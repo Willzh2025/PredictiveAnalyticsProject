@@ -32,6 +32,11 @@ By leveraging supervised regression techniques, the project aims to identify the
   - `make`, `model`, `year`, `condition`, `odometer`, `color`, `brand`, `category`
   - `mmr` (Manheim Market Report value)
   - `sellingprice` (target variable)
+ 
+- 📁 **Final Dataset Included**
+
+- [`data/final_selected_features_car_prices.csv`](./data/final_selected_features_car_prices.csv)  
+  This file contains the cleaned and feature-selected dataset used for model training. Intermediate feature selection datasets are documented in the notebook but not included to reduce redundancy.
 
 ---
 
