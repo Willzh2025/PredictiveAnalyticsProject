@@ -140,7 +140,7 @@ The ultimate goal is to deliver actionable insights that support smarter, data-d
 
 The following chart presents the frequency distributions of key categorical features in the dataset:
 
-![Categorical Feature Distributions](visualizations/Categorical_Feature_Distributions.png)
+![Categorical Feature Distributions](../visualizations/Categorical_Feature_Distributions.png)
 
 #### Key Takeaways:
 
@@ -154,7 +154,29 @@ The following chart presents the frequency distributions of key categorical feat
 
 These distributions provide important context for understanding the dataset composition and help inform preprocessing steps (e.g., rare category consolidation).
 
+### Distribution of Key Numerical Variables
 
+- **Selling Price**: Right-skewed; most cars are priced between \$5,000 and \$20,000, with a long tail above \$100,000.
+- **Odometer**: Positively skewed; most vehicles have mileage under 100,000 miles, but some outliers exceed 900,000.
+- **MMR (Market Benchmark Price)**: Also right-skewed, with values typically between \$5,000 and \$25,000.
+
+![Categorical Feature Distributions](../visualizations/Distributions_of_sellingprice_odometer_and_mmr.png)
+
+---
+
+### Top Vehicle Attributes (Categorical)
+
+- **Top Makes**: Ford, Chevrolet, Nissan, Toyota, Honda.
+- **Top Body Types**: Sedans and SUVs dominate.
+- **Transmission Types**: Majority are automatic.
+- **Top States**: FL, CA, PA, TX have the most listings.
+
+> 📊 *See Figure 2 for categorical distributions (brand, body type, state, transmission).*
+
+---
+
+![Figure 1: Distributions of sellingprice, odometer, and mmr](your_image_path_1.png)
+![Figure 2: Top 10 Brands, Body Types, and States](your_image_path_2.png)
 
 
 
