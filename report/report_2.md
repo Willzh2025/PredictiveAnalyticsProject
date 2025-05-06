@@ -361,6 +361,38 @@ These findings not only help shape our preprocessing and feature selection strat
 
 ## Data Cleaning and Preprocessing
 
+---
+
+### Duplicate & Missing Value Handling
+
+- **Duplicate Check**: No duplicate rows found in the dataset.
+- **Missing Value Check**:  
+  - Columns with missing values were identified and visualized using bar charts, matrix charts, and heatmaps.
+  - Low-missing columns (less than 1%) were handled via listwise deletion.
+  - High-missing categorical columns were imputed using mode values.
+  - Final check confirmed that missing values were fully addressed.
+
+---
+
+### Frequency & Categorical Value Checks
+
+- **Frequency Check**: Categorical features were examined for unusual or rare values.
+- **Discrete-Type Detection**: Identified variables with finite, interpretable value sets.
+- **Categorical Frequency Summary**: Provided an overview of distribution across major categorical features.
+
+---
+
+### Categorical Feature Cleaning & Normalization
+
+- **Column Standardization**:
+  - `make` was mapped to its corresponding `country` (e.g., Ford → United States).
+  - `body` types were grouped into body groups (e.g., coupe, sedan → Sedans and Coupes).
+- **Text Normalization**:
+  - Cleaned inconsistencies in `color` and `interior` columns (e.g., standardizing casing, removing whitespace).
+  - Transmission values (e.g., 'A', 'Automatic') were encoded as binary.
+
+---
+
 ### Outlier Detection
 
 Box Plot Insights: Vehicle Features & Selling Price
@@ -483,11 +515,16 @@ To prepare the dataset for machine learning algorithms, I applied **One-Hot Enco
 
 - **Dummy columns** were cast to `int64` for full compatibility with ML models.
 - **Final dataset shape**: e.g., `(451,244, 58)` — includes all one-hot encoded features.
-- Data successfully saved as:  
-  `one_hot_cleaned_car_prices_for_modeling.csv`
 
 One-hot encoding expands categorical features into numeric binary vectors, enabling regression and tree-based models to capture category effects.
 
+#### Final Encodings Summary
+
+- One-hot encoding was applied to key categorical columns: `body`, `make`, `color`, and `interior`.
+- Ensured all dummy variables were converted to `int64` for model compatibility.
+- A new feature `weekday` was created from `saledate` to capture potential day-of-week effects.
+
+Final cleaned dataset saved as: `one_hot_cleaned_car_prices_for_modeling.csv`
 
 ---
 
@@ -530,7 +567,49 @@ These variables, along with the target variable `sellingprice`, were retained to
 These findings validate the selected features as meaningful predictors of vehicle price.
 
 
+---
 
+
+### Formulating Business Analytics Questions
+
+---
+
+#### 1. Which factors most significantly influence the selling price of used vehicles?
+
+**Why it matters:**  
+Understanding what drives pricing helps dealers, resellers, and analysts make smarter pricing and sourcing decisions. It also increases transparency for customers.
+
+**How it connects to the data:**  
+By analyzing model-based feature importance (e.g., from Gradient Boosting or XGBoost), we can identify which variables—such as `mmr`, `condition`, `odometer`, `year`, or `brand`—most affect price.
+
+**Expected outcome:**  
+A ranked list of influential features based on their predictive importance in determining vehicle selling price.
+
+---
+
+#### 2. How accurately can the selling price of a vehicle be predicted based on its features?
+
+**Why it matters:**  
+Accurate predictions support automated pricing tools, better inventory valuation, and competitive strategy.
+
+**How it connects to the data:**  
+Using detailed features like `mmr`, `condition`, and `brand`, regression models can be trained and evaluated. Model performance will be assessed using metrics such as R², RMSE, and MAE.
+
+**Expected outcome:**  
+A summary of prediction accuracy and comparison across top-performing models (e.g., Gradient Boosting, LightGBM, XGBoost), validating overall reliability.
+
+---
+
+#### 3. How well does the predictive model generalize across different vehicle categories or brands?
+
+**Why it matters:**  
+Consistent performance across categories is critical for business deployment. Uneven accuracy may lead to unfair pricing or business risk.
+
+**How it connects to the data:**  
+By segmenting results by vehicle body type (e.g., SUV vs Other) or brand origin (e.g., Japanese vs Others), we can analyze accuracy trends and residuals across subgroups.
+
+**Expected outcome:**  
+Insights into where the model performs best or needs refinement, ensuring balanced performance across vehicle segments.
 
 
 
