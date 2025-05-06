@@ -156,7 +156,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Top Vehicle Attributes (Categorical)
+#### Top Vehicle Attributes (Categorical)
 
 - **Top Makes**: Ford, Chevrolet, Nissan, Toyota, Honda.
 - **Top Body Types**: Sedans and SUVs dominate.
@@ -183,7 +183,7 @@ These distributions provide important context for understanding the dataset comp
 ---
 
 
-### Vehicle Transmission Breakdown
+#### Vehicle Transmission Breakdown
 
 - Automatic transmissions (encoded as `1`) account for more than **96%** of all entries, reinforcing the dominance of automatics in the U.S. used vehicle market. Manual vehicles are rare in this dataset.
 
@@ -201,7 +201,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Log-Transformed Distribution of Selling Prices
+#### Log-Transformed Distribution of Selling Prices
 
 - Selling price is heavily right-skewed in raw form, with a long tail toward high-end vehicles.  
 - After log transformation, the distribution becomes much more symmetric and bell-shaped, which benefits linear model assumptions.
@@ -211,8 +211,14 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
+### Feature Relationships
 
-### Distribution of Selling Price vs Key Features
+---
+
+#### Selling Price vs Numerical Features
+
+
+##### Distribution of Selling Price vs Key Features
 
 ![Selling Price vs Odometer and MMR](../visualizations/Selling_Price_vs_Odometer_and_MMR.png)
 
@@ -223,19 +229,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Boxplots of Selling Price by Category
-
-![Boxplots by Category](../visualizations/Boxplots_by_Category.png)
-
-**Key Observations:**
-
-- **Body Type**: Convertibles and coupes tend to have higher price ranges than minivans or hatchbacks.  
-- **Brand (Make)**: Luxury brands like BMW and Infiniti show higher price distributions than others.  
-- **Transmission**: Automatic vehicles dominate the dataset and exhibit a wide price spread.
-
----
-
-### Correlation Heatmap (Numerical Features)
+##### Correlation Heatmap (Numerical Features)
 
 ![Correlation Heatmap](../visualizations/Correlation_Heatmap.png)
 
@@ -247,28 +241,22 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Categorical Relationships (Cramér’s V)
 
-![Cramér's V Heatmap](../visualizations/Cramer_V_Heatmap.png)
+#### Selling Price vs Categorical Features
 
-**Takeaways:**
+##### Boxplots of Selling Price by Category
 
-- Strong association between **make** and **country**, and between **body** and **body_group**.  
-- Most other categorical relationships are weak, suggesting minimal multicollinearity concerns.
+![Boxplots by Category](../visualizations/Boxplots_by_Category.png)
 
----
+**Key Observations:**
 
-### Monthly Sales Trend
-
-![Monthly Vehicle Sales Trend](../visualizations/Monthly_Vehicle_Sales_Trend.png)
-
-**Trend Observation:**
-
-- Vehicle sales peaked around early 2015, indicating seasonal or market-driven patterns worth further business analysis.
+- **Body Type**: Convertibles and coupes tend to have higher price ranges than minivans or hatchbacks.  
+- **Brand (Make)**: Luxury brands like BMW and Infiniti show higher price distributions than others.  
+- **Transmission**: Automatic vehicles dominate the dataset and exhibit a wide price spread.
 
 ---
 
-### Selling Price by Exterior Color
+##### Selling Price by Exterior Color
 
 ![Selling Price by Color Distribution](../visualizations/Selling_Price_by_Color_Distribution.png)
 
@@ -279,7 +267,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Selling Price by Interior Color
+##### Selling Price by Interior Color
 
 ![Selling Price by Interior Density](../visualizations/Selling_Price_by_Interior_Density.png)
 
@@ -290,7 +278,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Average Price by Exterior Color
+##### Average Price by Exterior Color
 
 ![Average Price by Exterior Color](../visualizations/Average_Price_by_Exterior_Color.png)
 
@@ -301,7 +289,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Average Price by Interior Color
+##### Average Price by Interior Color
 
 ![Average Price by Interior Color](../visualizations/Average_Price_by_Interior_Color.png)
 
@@ -311,8 +299,7 @@ These distributions provide important context for understanding the dataset comp
 - **Tan** and **blue** interiors correspond with lower average prices.
 
 ---
-
-### Top Brands with Off-White Interiors
+##### Top Brands with Off-White Interiors
 
 ![Top Brands with Off-White Interior](../visualizations/Top_Brands_with_Off-White_Interior.png)
 
@@ -322,6 +309,39 @@ These distributions provide important context for understanding the dataset comp
 - Other luxury brands like **BMW** and **Lexus** appear but in much smaller counts.
 
 ---
+
+
+
+#### Categorical vs Categorical Associations
+
+##### Categorical Relationships (Cramér’s V)
+
+![Cramér's V Heatmap](../visualizations/Cramer_V_Heatmap.png)
+
+**Takeaways:**
+
+- Strong association between **make** and **country**, and between **body** and **body_group**.  
+- Most other categorical relationships are weak, suggesting minimal multicollinearity concerns.
+
+---
+
+### Time-based Trends
+
+#### Monthly Sales Trend
+
+![Monthly Vehicle Sales Trend](../visualizations/Monthly_Vehicle_Sales_Trend.png)
+
+**Trend Observation:**
+
+- Vehicle sales peaked around early 2015, indicating seasonal or market-driven patterns worth further business analysis.
+
+
+
+
+
+
+
+
 
 ### Summary of EDA
 
