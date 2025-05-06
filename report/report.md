@@ -1401,3 +1401,52 @@ One important observation was the model’s **heavy reliance on the `mmr` variab
 - **Transparency**: With such dominance, the model pays little attention to other meaningful features like mileage, condition, or vehicle age—making it harder to interpret or justify the predictions.
 
 **For future improvement**, I would explore ways to reduce over-reliance on `mmr` and encourage the model to incorporate a broader range of features—especially when predicting prices for newer or less common vehicles.
+
+---
+
+## Appendix: Code & Visuals
+
+### 🔗 Google Colab Notebooks
+- [Data Preprocessing & EDA](https://drive.google.com/file/d/1wIt18lFApKYCF4RjMVaVUPg5u4kyeB3i/view?usp=sharing)
+- [Modeling & Evaluation](https://drive.google.com/file/d/1wIt18lFApKYCF4RjMVaVUPg5u4kyeB3i/view?usp=sharing)
+- [Final Analysis & Report Generation](https://drive.google.com/file/d/1wIt18lFApKYCF4RjMVaVUPg5u4kyeB3i/view?usp=sharing)
+
+### Key Visualizations
+
+#### 1. Feature Importance (Top 3 Models)
+- Gradient Boosting  
+  ![GBR Feature Importance](../visualizations/gbr_importance.png)
+- LightGBM  
+  ![LightGBM Feature Importance](../visualizations/LightGBM_Importance.png)
+- HistGradientBoosting  
+  ![HistGB Feature Importance](../visualizations/hgb_importance.png)
+
+#### 2. Residual Analysis (Top 3 Models)
+- Gradient Boosting  
+  ![GBR Residuals](../visualizations/gbr_residuals.png)
+- LightGBM  
+  ![LightGBM Residuals](../visualizations/LightGBM_Residuals.png)
+- HistGradientBoosting  
+  ![HistGB Residuals](../visualizations/hgb_residuals.png)
+
+#### 3. Model Comparison
+- Metric Comparison (Top 3 Models)  
+  ![Top Models Metrics](../visualizations/top3_model_comparison.png)
+
+#### 4. Outlier Analysis
+**Top 10 Largest Residuals:**
+
+| Index   | Actual   | Predicted | Residual  | Abs_Residual | Category_Label       |
+|--------:|----------|-----------|-----------|--------------|----------------------|
+| 336293  | 3.468793 | 0.667468  | 2.801325  | 2.801325     | Other                |
+| 185873  | 3.171805 | 0.423504  | 2.748301  | 2.748301     | Other                |
+| 335583  | 2.178038 | -0.540452 | 2.718490  | 2.718490     | Other                |
+| 324364  | 3.468793 | 0.784143  | 2.684650  | 2.684650     | Other                |
+| 327905  | 2.269419 | -0.368445 | 2.637864  | 2.637864     | Other                |
+| 43839   | 2.606386 | 0.094988  | 2.511398  | 2.511398     | Other                |
+| 25337   | 0.207639 | 2.709736  | -2.502096 | 2.502096     | SUVs and Crossovers |
+| 344696  | 1.835360 | -0.450061 | 2.285422  | 2.285422     | Other                |
+| 21404   | 2.714901 | 0.431136  | 2.283765  | 2.283765     | Other                |
+| 157423  | -1.397237| 0.809913  | -2.207150 | 2.207150     | SUVs and Crossovers |
+
+### 📁 Project Structure
