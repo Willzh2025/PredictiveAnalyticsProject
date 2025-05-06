@@ -982,7 +982,8 @@ The following table and charts summarize the performance of the LightGBM model a
 ###### 2. Detailed Metric Breakdown
 > Individual metric bar charts for clearer inspection.
 
-![Model Comparison Summary](../visualizations/lgbm_detailed metric.png)
+![Detailed Metric Breakdown](../visualizations/lgbm_detailed20%metric.png)
+
 
 
 ---
@@ -1038,7 +1039,7 @@ This plot helps us assess the model's error patterns. Ideally, residuals should 
 The histogram below shows the distribution of errors (actual - predicted).  
 ➡The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
 
-![Residual Histogram](Residual_Histogram.png)
+![Residual Histogram](../visualizations/Residual_Histogram.png)
 
 ---
 
@@ -1046,7 +1047,7 @@ The histogram below shows the distribution of errors (actual - predicted).
 This scatter plot compares actual and predicted selling prices.  
 ➡Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
 
-![Predicted vs Actual](Predicted_vs_Actual.png)
+![Predicted vs Actual](../visualizations/Predicted_vs_Actual.png)
 
 ---
 
