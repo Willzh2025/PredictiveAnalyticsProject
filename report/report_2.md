@@ -1293,7 +1293,7 @@ To answer this question, I analyzed the feature importance from the top-performi
   **Action:** Use for customer segmentation, not pricing logic.
 
 #### Feature Importance Chart (LightGBM GridSearch)
-![Gradient Boosting Importance](../visualizations/gbr_importance.png)
+![Feature Importance Chart (LightGBM GridSearch)](../visualizations/gbr_importance.png)
 
 ---
 
