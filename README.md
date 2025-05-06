@@ -91,7 +91,7 @@ You can include a final report PDF or markdown summary here once it’s ready:
 
 ## 🙋 Author
 
-**Willzh2025**  
+**WillZhong**  
 MSBA Candidate, Suffolk University  
 
 ---
