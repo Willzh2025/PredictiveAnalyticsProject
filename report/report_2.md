@@ -212,6 +212,116 @@ These distributions provide important context for understanding the dataset comp
 ---
 
 
+## 📊 Exploratory Data Analysis (EDA)
+
+### Distribution of Selling Price vs Key Variables
+
+![Selling Price vs Odometer and MMR](Unknown-3.png)
+
+**Key Insights:**
+
+- **Odometer**: There is a clear negative relationship—vehicles with lower mileage tend to command higher prices. Outliers with extremely low prices at high mileage levels are visible.  
+- **MMR Value**: Strong positive correlation with selling price, indicating MMR is a reliable market benchmark for pricing.
+
+---
+
+### Boxplots of Selling Price by Category
+
+![Boxplots by Category](Unknown-4.jpeg)
+
+**Key Observations:**
+
+- **Body Type**: Convertibles and coupes tend to have higher price ranges than minivans or hatchbacks.  
+- **Brand (Make)**: Luxury brands like BMW and Infiniti show higher price distributions than others.  
+- **Transmission**: Automatic vehicles dominate the dataset and exhibit a wide price spread.
+
+---
+
+### 📈 Correlation Heatmap (Numerical Features)
+
+![Correlation Heatmap](Unknown-5.png)
+
+**Insights:**
+
+- **MMR and Selling Price**: Nearly perfect positive correlation (0.99).  
+- **Odometer and Selling Price**: Moderately negative correlation (–0.58), suggesting depreciation with use.  
+- **Year** also positively correlates with price—newer vehicles are more valuable.
+
+---
+
+### 🔗 Categorical Relationships (Cramér’s V)
+
+![Cramér's V Heatmap](Unknown-6.png)
+
+**Takeaways:**
+
+- Strong association between **make** and **country**, and between **body** and **body_group**.  
+- Most other categorical relationships are weak, suggesting minimal multicollinearity concerns.
+
+---
+
+### 🗓️ Monthly Sales Trend
+
+![Monthly Vehicle Sales Trend](Unknown-7.png)
+
+**Trend Observation:**
+
+- Vehicle sales peaked around early 2015, indicating seasonal or market-driven patterns worth further business analysis.
+
+---
+
+### 🎨 Selling Price by Exterior Color
+
+![Selling Price by Color Distribution](Unknown-8.png)
+
+**Color-Based Behavior:**
+
+- **Gray**, **white**, and **black** are the most common colors and span a wide price range.  
+- Bright or niche colors (e.g., lime, turquoise) are associated with lower frequency and possibly more specialized pricing.
+
+---
+
+### 🎨 Selling Price by Interior Color
+
+![Selling Price by Interior Density](Unknown-9.png)
+
+**Interior Preferences:**
+
+- Black and beige interiors dominate volume.  
+- **Off-white** shows a distinct price peak, indicating premium vehicle alignment.
+
+---
+
+### 💰 Average Price by Exterior Color
+
+![Average Price by Exterior Color](Unknown-10.png)
+
+**Insight:**
+
+- **Charcoal**, **off-white**, and **black** tend to fetch higher average prices.  
+- **Gold**, **white**, and **green** see lower average prices.
+
+---
+
+### 💰 Average Price by Interior Color
+
+![Average Price by Interior Color](Unknown-11.png)
+
+**Observation:**
+
+- **Off-white** interiors show a much higher average price—often a sign of luxury branding.  
+- **Tan** and **blue** interiors correspond with lower average prices.
+
+---
+
+### 👑 Top Brands with Off-White Interiors
+
+![Top Brands with Off-White Interior](Unknown-12.png)
+
+**Insight:**
+
+- **Mercedes-Benz** dominates the vehicles featuring off-white interiors, consistent with premium design choices.  
+- Other luxury brands like **BMW** and **Lexus** appear but in much smaller counts.
 
 
 
