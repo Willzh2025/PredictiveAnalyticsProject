@@ -1,5 +1,5 @@
 
-## 🚗 Predictive Modeling for Used Car Pricing
+# 🚗 Predictive Modeling for Used Car Pricing
 > ——*A Machine Learning Project*
 
 
@@ -359,12 +359,201 @@ These findings not only help shape our preprocessing and feature selection strat
 
 ---
 
+## Data Cleaning and Preprocessing
+
+### Outlier Detection
+
+Box Plot Insights: Vehicle Features & Selling Price
+
+1. **Model Year & Condition**
+- **`year`**: Most vehicles are manufactured between **2010–2014**, with a few **older outliers** (pre-2000).
+- **`condition`**: Fairly **evenly distributed**, centered around average values. No major outliers, suggesting condition scores are relatively stable across vehicles.
+
+2. **Odometer**
+- Shows a **heavily right-skewed** distribution.
+- **Outliers above 300,000 miles** are prevalent, with some extreme values exceeding **900,000+ miles**.
+- Consider **capping or trimming** the top 1% to reduce skewness and improve model robustness.
+
+3. **MMR (Market-Based Reference Price)**
+- Dominated by outliers above **$75,000**, with a long right tail.
+- This feature likely represents **industry reference benchmarks** but contains values far beyond the majority.
+- Consider applying **log transformation** or **capping** at a reasonable upper bound (e.g., 99th percentile).
+
+4. **Selling Price**
+- Highly **right-skewed** with numerous **extreme outliers** above **$100,000** and even **$200,000+**.
+- Consider applying **log transformation** or **capping** at a reasonable upper bound (e.g., 99th percentile).
+
+>Proposed Action Plan
+>
+>Apply **outlier treatment (e.g., quantile-based trimming)** or **transformation (e.g., log)** to `odometer`, `mmr`, and `sellingprice` to enhance model training and interpretability.
 
 
+![Boxplots of Numerical Features](../visualizations/Boxplots_of_Numerical_Features.png)
 
+**Insights:**
+
+- **Odometer**, **MMR**, and **Selling Price** exhibit strong right-skewed distributions with substantial outliers.
+- **Year** and **Condition** show relatively symmetric distributions with fewer extreme values.
+- Visualizing these helps determine which variables need capping to improve model robustness.
+
+---
+
+### Outlier Summary (IQR-based Detection)
+
+**Outlier Count and Percentage per Feature:**
+
+- **mmr**: 2,523 outliers (0.56%)
+- **sellingprice**: 2,361 outliers (0.52%)
+- **odometer**: 424 outliers (0.09%)
+- **year**: 0 outliers (0.00%)
+- **condition**: 0 outliers (0.00%)
+
+**Selected Features for Treatment**:  
+`['mmr', 'sellingprice', 'odometer']`
+
+**Key Insights:**
+
+- Although **mmr** and **sellingprice** exhibit long tails, their outlier rates are under 1%, implying they are rare but potentially impactful.
+- **odometer** has fewer outliers, yet these can still distort model training.
+- **year** and **condition** are clean and stable with no detected outliers.
+
+**Actionable Plan:**
+
+- Either **retain** the outliers when using robust models (e.g., Gradient Boosting), or  
+- Apply **capping** (e.g., 1st–99th percentile) to minimize the influence of extreme values and enhance model generalizability.
+
+---
+
+### Apply Capping to Selected Columns
+
+#### Applied Method: 1st–99th Percentile Capping
+
+To address extreme outliers without sacrificing data completeness, I applied **percentile-based capping**:
+
+- **Method**: 1st–99th percentile capping  
+- **Goal**: Limit the influence of extreme values while preserving all rows
+- **Capping Applied To**:  `['mmr', 'sellingprice', 'odometer']`
+
+#### Why 1st–99th Percentile?
+
+- Retains **most data points**, ensuring downstream model performance is not compromised.
+- Especially suitable for **right-skewed distributions** like price and mileage.
+- Helps maintain **row count consistency**, which is crucial for dashboarding and time-based analyses.
+
+#### Key Observations from Box Plots:
+
+- **MMR and Selling Price**: Originally had long-tailed outliers, now capped to reflect more realistic market values.
+- **Odometer**: Extremely high mileage vehicles (e.g., > 500,000 miles) were capped, improving scale uniformity.
+- **Distribution Shape**: The core IQR structure remains intact, preserving meaningful variation for modeling.
+
+**Outcome**:
+
+- Outliers were effectively **capped** rather than removed.
+- This approach **preserves row count and data structure**, ensuring minimal information loss while reducing the distortion from extreme values.
+- Post-capping boxplots confirm that the majority of extreme outliers were compressed into the whisker range.
+
+![Before vs After Capping](../visualizations/Before_vs_After_Capping_Boxplots.png)
+
+**Takeaways:**
+
+- After applying percentile-based capping (1st–99th percentile), extreme outliers are removed without distorting the core distribution.
+- This transformation reduces the influence of rare but extreme values in **mmr**, **odometer**, and **sellingprice**, which is crucial for stable model training.
+
+---
+
+### One-Hot Encoding
+
+To prepare the dataset for machine learning algorithms, I applied **One-Hot Encoding** to convert categorical variables into binary features.
+
+#### Feature Engineering Steps:
+
+- Converted `saledate` to datetime format and extracted **weekday** (`1–7`) as a new temporal feature.
+- Replaced original columns for better semantic clarity:
+  - `make` was replaced with `country` to focus on **vehicle origin**.
+  - `body` was replaced with `body_group` to generalize **vehicle types**.
+
+#### Encoded Categorical Columns:
+
+- `body` → One-hot encoded as `Cat_*`
+- `make` (country) → One-hot encoded as `Brand_*`
+- `color` (exterior) → One-hot encoded as `C_*`
+- `interior` (interior material) → One-hot encoded as `I_*`
+
+#### Output:
+
+- **Dummy columns** were cast to `int64` for full compatibility with ML models.
+- **Final dataset shape**: e.g., `(451,244, 58)` — includes all one-hot encoded features.
+- Data successfully saved as:  
+  `one_hot_cleaned_car_prices_for_modeling.csv`
+
+One-hot encoding expands categorical features into numeric binary vectors, enabling regression and tree-based models to capture category effects.
 
 
 ---
+
+### Feature Selection and Preparation
+
+---
+
+#### Retained Features (10)
+
+To balance model accuracy and interpretability, we selected the top 10 most relevant features based on exploratory analysis, box plots, and correlation heatmaps:
+
+| Feature             | Description                                               |
+|---------------------|-----------------------------------------------------------|
+| `year`              | Newer vehicles usually command higher resale value        |
+| `condition`         | Better condition positively correlates with price         |
+| `odometer`          | Higher mileage generally reduces price                    |
+| `mmr`               | Manheim Market Report value – a strong price benchmark    |
+| `Cat_Pickup Trucks` | Key body type category                                    |
+| `Cat_Sedans and Coupes` | Another major body type segment                      |
+| `Brand_Germany`     | Captures premium brand influence (e.g., BMW, Mercedes)    |
+| `C_black`           | Most common exterior color                                |
+| `I_black`           | Dominant interior color                                   |
+| `I_gray`            | Popular interior tone                                     |
+
+These variables, along with the target variable `sellingprice`, were retained to form the final modeling dataset. All other variables were dropped to reduce noise and multicollinearity.
+
+---
+
+#### Final Feature Correlation Heatmap
+
+![Correlation Matrix of Selected Features](../visualizations/Selected_Feature_Correlation_Heatmap.png)
+
+**Insights:**
+
+- **MMR (0.98)** shows an almost perfect linear relationship with `sellingprice`.
+- **Year (0.61)** and **condition (0.55)** also contribute significantly.
+- **Odometer** presents a strong negative relationship (–0.62), aligning with depreciation trends.
+- Other categorical indicators (e.g., color, brand, body) have moderate but meaningful associations.
+
+These findings validate the selected features as meaningful predictors of vehicle price.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 1. Variable Distributions
 
