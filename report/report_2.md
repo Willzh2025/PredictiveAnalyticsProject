@@ -1029,7 +1029,7 @@ The most influential features identified by the LightGBM model are:
 
 **1. Residuals vs Predicted Values**  
 This plot helps us assess the model's error patterns. Ideally, residuals should be symmetrically distributed around zero without clear structure.  
-➡The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
+The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
 
 ![Residuals vs Predicted](../visualizations/Residuals_vs_Predicted.png)
 
@@ -1037,7 +1037,7 @@ This plot helps us assess the model's error patterns. Ideally, residuals should 
 
 **2. Residuals Distribution**  
 The histogram below shows the distribution of errors (actual - predicted).  
-➡The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
+The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
 
 ![Residual Histogram](../visualizations/Residual_Histogram.png)
 
@@ -1045,7 +1045,7 @@ The histogram below shows the distribution of errors (actual - predicted).
 
 **3. Predicted vs Actual**  
 This scatter plot compares actual and predicted selling prices.  
-➡Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
+Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
 
 ![Predicted vs Actual](../visualizations/Predicted_vs_Actual.png)
 
