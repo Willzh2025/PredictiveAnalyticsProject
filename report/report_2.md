@@ -1031,7 +1031,7 @@ The most influential features identified by the LightGBM model are:
 This plot helps us assess the model's error patterns. Ideally, residuals should be symmetrically distributed around zero without clear structure.  
 ➡The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
 
-![Residuals vs Predicted](../visualizations/Residuals_vs_Predicted-5.png)
+![Residuals vs Predicted](../visualizations/Residuals_vs_Predicted.png)
 
 ---
 
