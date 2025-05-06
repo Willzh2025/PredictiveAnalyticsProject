@@ -957,16 +957,40 @@ To ensure reproducibility and avoid re-training:
 
 ---
 
-### 5. LightGBM Model Performance Comparison
+### 5. LightGBM Model Performance Summary
 
-Compared tuned LightGBM against:
+The following table and charts summarize the performance of the LightGBM model across four stages: **Baseline**, **Halving Random Search**, **Randomized Search**, and **Grid Search**.
 
-- Baseline LightGBM
-- Gradient Boosting
-- XGBoost
-- Linear Regression, Random Forest, etc.
+| Model                   | Train R² | Train MSE | Train RMSE | Train MAE | Test R²  | Test MSE | Test RMSE | Test MAE |
+|------------------------|----------|-----------|------------|-----------|----------|----------|-----------|----------|
+| LightGBM Baseline      | 0.976381 | 0.023634  | 0.153733   | 0.100969  | 0.976264 | 0.023678 | 0.153878  | 0.101113 |
+| LightGBM Halving       | 0.976659 | 0.023355  | 0.152825   | 0.100526  | 0.976248 | 0.023695 | 0.153931  | 0.101115 |
+| LightGBM RandomSearch  | 0.977099 | 0.022915  | 0.151377   | 0.099667  | 0.976335 | 0.023608 | 0.153650  | 0.100842 |
+| LightGBM GridSearch    | 0.977140 | 0.022873  | 0.151239   | 0.099586  | 0.976347 | 0.023596 | 0.153610  | 0.100805 |
 
-**Result**: Tuned LightGBM performed nearly best overall, **with the smallest overfitting gap** and high test R² (0.9763).
+---
+
+#### Visual Comparison
+
+##### 1. Model Comparison Summary (Test Set)
+> Combined comparison of R², RMSE, and MAE across models.
+
+![Model Comparison Summary](../visualizations/lgbm_comparison_summary.png)
+
+##### 2. Detailed Metric Breakdown
+> Individual metric bar charts for clearer inspection.
+
+![Model Comparison Summary](../visualizations/lgbm_detailed metric.png)
+
+
+---
+
+#### LightGBM Insight Summary
+
+- All models performed very similarly with **Test R² > 0.976**, showing strong generalization.
+- **GridSearchCV** had the lowest overall errors and provided the most balanced result.
+- Compared to the baseline, tuning improved consistency across metrics.
+- **Recommendation**: Finalize **LightGBM GridSearch** as the best model for deployment or further interpretation.
 
 ---
 
@@ -980,15 +1004,51 @@ Selected **LightGBM (GridSearch-tuned)** as the final model for deployment and i
 
 ---
 
-### 7. Feature Importance + Residual Analysis (LightGBM)
+### 7. LightGBM Final Model Analysis
 
-Visualized:
+After baseline modeling and three rounds of hyperparameter tuning, the final LightGBM model (GridSearchCV) demonstrated the best balance between performance and generalization.
 
-- **Feature Importance**: Confirmed MMR and odometer are key.
-- **Residual Plots**: No major pattern or bias detected — errors centered and stable.
-- **Prediction vs Actual Scatterplot**: Tight alignment confirmed model validity.
+#### Feature Importance
+
+The most influential features identified by the LightGBM model are:
+
+- **mmr** (market value)
+- **condition** (vehicle condition)
+- **odometer** (mileage)
+- **year** (model year)
+- **weekday**, **C_white**, and brand/type-related features had lower importance
+
+![Feature Importance](../visualizations/Feature_Importance.png)
 
 ---
+
+#### Residual Analysis
+
+**1. Residuals vs Predicted Values**  
+This plot helps us assess the model's error patterns. Ideally, residuals should be symmetrically distributed around zero without clear structure.  
+➡️ The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
+
+![Residuals vs Predicted](Unknown-5.png)
+
+---
+
+**2. Residuals Distribution**  
+The histogram below shows the distribution of errors (actual - predicted).  
+➡️ The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
+
+![Residual Histogram](Unknown-6.png)
+
+---
+
+**3. Predicted vs Actual**  
+This scatter plot compares actual and predicted selling prices.  
+➡️ Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
+
+![Predicted vs Actual](Unknown-7.png)
+
+
+---
+
 
 ### 8. LightGBM Model Interpretation
 
