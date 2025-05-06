@@ -73,7 +73,7 @@ Open this notebook in Google Colab to view code, run the analysis, or reproduce 
 
 You can include a final report PDF or markdown summary here once it’s ready:
 
-📁 `./report/report.md
+📁 `[report](./report/report.md)
 
 ---
 
