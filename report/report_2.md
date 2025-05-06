@@ -183,7 +183,7 @@ These distributions provide important context for understanding the dataset comp
 ---
 
 
-### 🔹 Vehicle Transmission Breakdown
+### Vehicle Transmission Breakdown
 
 - Automatic transmissions (encoded as `1`) account for more than **96%** of all entries, reinforcing the dominance of automatics in the U.S. used vehicle market. Manual vehicles are rare in this dataset.
 
@@ -225,7 +225,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### Boxplots of Selling Price by Category
 
-![Boxplots by Category](../visualizations/Boxplots_by_Category.jpeg)
+![Boxplots by Category](../visualizations/Boxplots_by_Category.png)
 
 **Key Observations:**
 
@@ -268,7 +268,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 🎨 Selling Price by Exterior Color
+### Selling Price by Exterior Color
 
 ![Selling Price by Color Distribution](../visualizations/Selling_Price_by_Color_Distribution.png)
 
@@ -279,7 +279,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 🎨 Selling Price by Interior Color
+### Selling Price by Interior Color
 
 ![Selling Price by Interior Density](../visualizations/Selling_Price_by_Interior_Density.png)
 
@@ -290,7 +290,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 💰 Average Price by Exterior Color
+### Average Price by Exterior Color
 
 ![Average Price by Exterior Color](../visualizations/Average_Price_by_Exterior_Color.png)
 
@@ -301,7 +301,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 💰 Average Price by Interior Color
+### Average Price by Interior Color
 
 ![Average Price by Interior Color](../visualizations/Average_Price_by_Interior_Color.png)
 
@@ -312,7 +312,7 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 👑 Top Brands with Off-White Interiors
+### Top Brands with Off-White Interiors
 
 ![Top Brands with Off-White Interior](../visualizations/Top_Brands_with_Off-White_Interior.png)
 
@@ -325,6 +325,11 @@ These distributions provide important context for understanding the dataset comp
 
 
 
+
+
+
+
+---
 
 ### 1. Variable Distributions
 
