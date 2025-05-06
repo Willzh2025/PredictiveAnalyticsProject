@@ -175,10 +175,10 @@ These distributions provide important context for understanding the dataset comp
 - **Vehicle Color**: Black, white, silver, and gray are the most common exterior colors.
 - **Interior Color**: Black and gray dominate interior designs, indicating market preference.
 
-![Country of Origin](../images/country_distribution.png)
-![Vehicle Type Group](../images/bodygroup_distribution.png)
-![Vehicle Colors](../images/exterior_color_distribution.png)
-![Interior Colors](../images/interior_color_distribution.png)
+![Distribution by Category](../visualizations/country_distribution.png)
+![Distribution by Category](../visualizations/bodygroup_distribution.png)
+![Distribution by Category](../visualizations/exterior_color_distribution.png)
+![Distribution by Category](../visualizations/interior_color_distribution.png)
 
 ---
 
