@@ -2,6 +2,12 @@
 # 🚗 Predictive Modeling for Used Car Pricing
 > ——*A Machine Learning Project*
 
+**Student**: [Will Zhong]  
+**Course**: [ISOM 835 Machine Learning]  
+**Instructor**: [Hasan Arslan]  
+**Date**: [05/2025]
+
+
 
 ---
 
