@@ -249,7 +249,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### Categorical Relationships (Cramér’s V)
 
-![Cramér's V Heatmap](../visualizations/Cramér's_V_Heatmap.png)
+![Cramér's V Heatmap](../visualizations/Cramer_V_Heatmap.png)
 
 **Takeaways:**
 
@@ -321,7 +321,19 @@ These distributions provide important context for understanding the dataset comp
 - **Mercedes-Benz** dominates the vehicles featuring off-white interiors, consistent with premium design choices.  
 - Other luxury brands like **BMW** and **Lexus** appear but in much smaller counts.
 
+---
 
+### Summary of EDA
+
+My exploratory analysis revealed several key insights:
+
+- **Price Drivers**: Vehicle age (year), mileage (odometer), and market benchmark (MMR) are strongly associated with selling price, with MMR showing the highest correlation.
+- **Category Patterns**: Body type, brand, and color exhibit notable price differences—luxury brands and niche colors often correlate with higher prices.
+- **Market Skew**: Selling price, MMR, and odometer all show right-skewed distributions, suggesting the presence of high-end and high-mileage outliers.
+- **Transmission Trends**: Automatic vehicles dominate the dataset and show a wide range in selling prices.
+- **Temporal Variation**: Sales volume peaked in early 2015, potentially due to seasonal or economic trends.
+
+These findings not only help shape our preprocessing and feature selection strategy, but also validate the dataset’s suitability for supervised learning and regression modeling.
 
 
 
@@ -340,25 +352,6 @@ These distributions provide important context for understanding the dataset comp
 
 > 📊 *Included plots: histograms for year, condition, odometer, and sellingprice.*
 
----
-
-### 2. Correlations and Relationships
-
-- **MMR vs Selling Price**: Strong positive correlation observed. MMR is a reliable price anchor, confirming its predictive value.
-- **Odometer vs Selling Price**: As expected, higher mileage tends to reduce the vehicle’s selling price.
-- **Condition vs Selling Price**: Better condition is associated with higher prices, though with more variance than expected.
-
-> 📈 *Included visuals: scatter plots and heatmap of correlations among numeric variables.*
-
----
-
-### 3. Categorical Breakdown
-
-- **Body Type**: Sedans and SUVs dominate the dataset. Average selling price is higher for SUVs.
-- **Brand Analysis**: Japanese brands (Toyota, Honda, Nissan) generally show tighter price distributions and lower average error rates in modeling (see later sections).
-- **Seller Insights**: A few major sellers (e.g., financial institutions) account for most listings; price variance is lower among institutional sellers.
-
-> 📊 *Included plots: bar charts for body types, sellers, and average price per brand.*
 
 ---
 
