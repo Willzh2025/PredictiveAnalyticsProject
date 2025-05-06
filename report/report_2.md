@@ -212,11 +212,9 @@ These distributions provide important context for understanding the dataset comp
 ---
 
 
-## 📊 Exploratory Data Analysis (EDA)
+### Distribution of Selling Price vs Key Features
 
-### Distribution of Selling Price vs Key Variables
-
-![Selling Price vs Odometer and MMR](Unknown-3.png)
+![Selling Price vs Odometer and MMR](../visualizations/Selling_Price_vs_Odometer_and_MMR.png)
 
 **Key Insights:**
 
@@ -227,7 +225,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### Boxplots of Selling Price by Category
 
-![Boxplots by Category](Unknown-4.jpeg)
+![Boxplots by Category](../visualizations/Boxplots_by_Category.jpeg)
 
 **Key Observations:**
 
@@ -237,9 +235,9 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 📈 Correlation Heatmap (Numerical Features)
+### Correlation Heatmap (Numerical Features)
 
-![Correlation Heatmap](Unknown-5.png)
+![Correlation Heatmap](../visualizations/Correlation_Heatmap.png)
 
 **Insights:**
 
@@ -249,9 +247,9 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 🔗 Categorical Relationships (Cramér’s V)
+### Categorical Relationships (Cramér’s V)
 
-![Cramér's V Heatmap](Unknown-6.png)
+![Cramér's V Heatmap](../visualizations/Cramér's_V_Heatmap.png)
 
 **Takeaways:**
 
@@ -260,9 +258,9 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### 🗓️ Monthly Sales Trend
+### Monthly Sales Trend
 
-![Monthly Vehicle Sales Trend](Unknown-7.png)
+![Monthly Vehicle Sales Trend](../visualizations/Monthly_Vehicle_Sales_Trend.png)
 
 **Trend Observation:**
 
@@ -272,7 +270,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### 🎨 Selling Price by Exterior Color
 
-![Selling Price by Color Distribution](Unknown-8.png)
+![Selling Price by Color Distribution](../visualizations/Selling_Price_by_Color_Distribution.png)
 
 **Color-Based Behavior:**
 
@@ -283,7 +281,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### 🎨 Selling Price by Interior Color
 
-![Selling Price by Interior Density](Unknown-9.png)
+![Selling Price by Interior Density](../visualizations/Selling_Price_by_Interior_Density.png)
 
 **Interior Preferences:**
 
@@ -294,7 +292,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### 💰 Average Price by Exterior Color
 
-![Average Price by Exterior Color](Unknown-10.png)
+![Average Price by Exterior Color](../visualizations/Average_Price_by_Exterior_Color.png)
 
 **Insight:**
 
@@ -305,7 +303,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### 💰 Average Price by Interior Color
 
-![Average Price by Interior Color](Unknown-11.png)
+![Average Price by Interior Color](../visualizations/Average_Price_by_Interior_Color.png)
 
 **Observation:**
 
@@ -316,7 +314,7 @@ These distributions provide important context for understanding the dataset comp
 
 ### 👑 Top Brands with Off-White Interiors
 
-![Top Brands with Off-White Interior](Unknown-12.png)
+![Top Brands with Off-White Interior](../visualizations/Top_Brands_with_Off-White_Interior.png)
 
 **Insight:**
 
