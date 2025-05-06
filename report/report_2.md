@@ -142,7 +142,7 @@ The following chart presents the frequency distributions of key categorical feat
 
 ![Distribution of Categorical Features](../visualizations/Categorical_Feature_Distributions.png)
 
-#### Key Takeaways:
+Key Takeaways:
 
 - **Make**: Ford, Chevrolet, and Nissan are the most frequently listed brands, representing a large portion of the dataset.
 - **Body Type**: Sedans and SUVs dominate the vehicle body types, while coupes, convertibles, and wagons are less common.
@@ -154,9 +154,42 @@ The following chart presents the frequency distributions of key categorical feat
 
 These distributions provide important context for understanding the dataset composition and help inform preprocessing steps (e.g., rare category consolidation).
 
+---
+
+### Top Vehicle Attributes (Categorical)
+
+- **Top Makes**: Ford, Chevrolet, Nissan, Toyota, Honda.
+- **Top Body Types**: Sedans and SUVs dominate.
+- **Transmission Types**: Majority are automatic.
+- **Top States**: FL, CA, PA, TX have the most listings.
+
+![Top Vehicle Attributes (Categorical)](../visualizations/Top_10_Brands_Body_Types_Transmision_and_States.png)
+
 
 ---
 
+#### Distribution by Category
+
+- **Country of Origin**: U.S.-made vehicles dominate the dataset, followed by Japan and Germany.
+- **Vehicle Type**: Sedans and SUVs account for the majority; pickup trucks and minivans are fewer.
+- **Vehicle Color**: Black, white, silver, and gray are the most common exterior colors.
+- **Interior Color**: Black and gray dominate interior designs, indicating market preference.
+
+![Country of Origin](../images/country_distribution.png)
+![Vehicle Type Group](../images/bodygroup_distribution.png)
+![Vehicle Colors](../images/exterior_color_distribution.png)
+![Interior Colors](../images/interior_color_distribution.png)
+
+---
+
+
+### 🔹 Vehicle Transmission Breakdown
+
+- Automatic transmissions (encoded as `1`) account for more than **96%** of all entries, reinforcing the dominance of automatics in the U.S. used vehicle market. Manual vehicles are rare in this dataset.
+
+![Vehicle Transmission Breakdown](../visualizations/Vehicle_Transmission.png)
+
+---
 
 ### Distribution of Key Numerical Features
 
@@ -168,16 +201,19 @@ These distributions provide important context for understanding the dataset comp
 
 ---
 
-### Top Vehicle Attributes (Categorical)
+### Log-Transformed Distribution of Selling Prices
 
-- **Top Makes**: Ford, Chevrolet, Nissan, Toyota, Honda.
-- **Top Body Types**: Sedans and SUVs dominate.
-- **Transmission Types**: Majority are automatic.
-- **Top States**: FL, CA, PA, TX have the most listings.
+- Selling price is heavily right-skewed in raw form, with a long tail toward high-end vehicles.  
+- After log transformation, the distribution becomes much more symmetric and bell-shaped, which benefits linear model assumptions.
 
-> ![Top Vehicle Attributes (Categorical)](../visualizations/Top_10_Brands_Body_Types_Transmision_and_States.png)
+![Log-Transformed Distribution of Selling Prices](../visualizations/Log_Transformed_Distribution_of_Selling_Prices.png)
+
 
 ---
+
+
+
+
 
 
 
