@@ -611,15 +611,391 @@ By segmenting results by vehicle body type (e.g., SUV vs Other) or brand origin 
 **Expected outcome:**  
 Insights into where the model performs best or needs refinement, ensuring balanced performance across vehicle segments.
 
+---
+
+## Predictive Modeling 
+
+---
+
+### Defining Functions: Model Selection, Validation & Comparison
+
+I defined reusable functions to automate model training, cross-validation, evaluation, and comparison across multiple regressors. These functions help streamline the modeling workflow and ensure consistency.
+
+- `evaluate_models_pipeline()`  
+- `compare_and_select_best_models()`  
+- `cross_validate_model()`
+- `compare_and_select_best_models()`
+- `save_model_with_params()`
+- `evaluate_models_pipeline()`
+- `SmartModelSelector` 
+
+These tools support both baseline and tuned models, and provide metrics such as **R²**, **MAE**, **MSE**, and **RMSE** for comparison.
+
+---
+
+### Feature Selection and Preparation
+
+#### Data Checking and Reloading
+
+Before feature selection, I checked the cleaned dataset to ensure all preprocessing steps were applied correctly and no transformations were missing.
+
+#### Lasso Regression for Feature Importance
+
+To select the most predictive features, I used **Lasso Regression**:
+
+- Automatically penalizes less important variables by shrinking their coefficients to zero
+- Helps improve generalization by reducing overfitting
+
+Key steps:
+
+- Standardized input features
+- Used cross-validation to determine optimal regularization strength (`alpha`)
+- Visualized Lasso coefficients to guide final selection
+
+#### Final Feature Selection
+
+Based on Lasso results and domain relevance, I selected the following 8 features for final modeling:
+
+🔹 Selected Features:
+1. year
+2. Cat_SUVs and Crossovers
+3. odometer
+4. weekday
+5. Brand_Japan
+6. C_white
+7. condition
+8. mmr
+
+These features, combined with the target `sellingprice`, form the final modeling dataset.
+The final modeling dataset, containing the selected 10 key features and the target variable `sellingprice`, was saved as: final_selected_car_prices_for_modeling.csv
+
+### Data Preparation for Modeling
+
+#### Data Checking Before Selecting
+
+To prevent data mismatch or loss due to session interruptions (e.g., in Colab environments), I reloaded and revalidated the final dataset before proceeding with feature selection and scaling.
+
+This step ensured:
+
+- No shape inconsistencies
+- No unexpected missing values
+- All selected features remained available and correctly typed
+
+By doing so, I guaranteed a clean and stable base for downstream modeling tasks.
+
+#### Manual Feature Set Selection (Optional Step)
+
+Although the final modeling used features selected via Lasso and correlation analysis, I also implemented an optional manual selection step.
+
+**Purpose:**
+
+- To allow flexibility for modeling with alternative datasets or domain-specific feature sets.
+- To provide a checkpoint where business logic or new hypotheses can guide feature refinement.
+
+This step is especially helpful for experimenting with different feature combinations in future iterations or business-specific models.
+
+#### Data Scaling & Train-Test Split
+
+- Applied MinMaxScaler / StandardScaler to normalize numeric features
+- Split dataset into **training (80%)** and **test (20%)** subsets with `random_state=42` for reproducibility
+
+This dataset is fully preprocessed and feature-selected, ready for training and evaluation across various regression models.
+
+---
+
+### Unified Modeling and Model Comparison
+
+---
+
+#### Overview
+
+To establish a benchmark and select the most robust regression model, I trained and evaluated six models:
+
+- Linear Regression  
+- Random Forest  
+- Gradient Boosting  
+- HistGradientBoosting  
+- LightGBM  
+- XGBoost  
+
+Each model was assessed based on training and test performance metrics, including R², MSE, RMSE, and MAE. The goal was to identify high-performing models that generalize well and avoid overfitting.
 
 
+| Model                | Train R² | Test R² | Test RMSE | Overfit Gap |
+|---------------------|----------|---------|------------|--------------|
+| **LightGBM**         | 0.9764   | 0.9763  | 0.1539     | **0.0001**   |
+| HistGradientBoosting| 0.9763   | 0.9762  | 0.1540     | 0.0001       |
+| XGBoost             | 0.9774   | 0.9760  | 0.1548     | 0.0014       |
+| Gradient Boosting   | 0.9756   | 0.9757  | 0.1556     | -0.0001      |
+| Linear Regression   | 0.9746   | 0.9747  | 0.1595     | -0.0001      |
+| Random Forest       | 0.9963   | 0.9738  | 0.1618     | **0.0225**   |
+
+---
+
+#### Test Performance Comparison (Bar Charts)
+
+To visually compare model generalization on unseen data, I plotted four bar charts based on test set results:
+
+![Test Performance Comparison](../visualizations/Model_Comparison_Test_Metrics.png)
+
+**Observations:**
+
+- **Test R²**: LightGBM, HistGradientBoosting, and XGBoost show the highest explanatory power.
+- **Test MSE & RMSE**: LightGBM leads with the lowest error, closely followed by HistGradientBoosting.
+- **Test MAE**: All boosting models outperform linear and random forest in absolute prediction accuracy.
+
+These charts reinforce the earlier ranking and help validate model consistency across different error metrics.
+
+---
+
+#### Performance Summary, Overfitting and Generalization Analysis
+
+![Overfitting and R2 Comparison](../visualizations/R2_Overfitting_Comparison.png)
+
+**Insights:**
+
+- **LightGBM** and **HistGradientBoosting** show the best balance between accuracy and generalization, with minimal overfit.
+- **Random Forest** achieves a high training R² but overfits significantly, as seen from the large test gap.
+- **Gradient Boosting** and **Linear Regression** perform consistently with small gaps and stable R² values.
+- **XGBoost** performs well, but with a slightly higher overfit gap than LightGBM.
+
+**LightGBM** was selected as the most balanced and reliable model, offering excellent predictive power with minimal overfitting risk.
+
+All models were evaluated using `SmartModelSelector` and `evaluate_models_pipeline()` to ensure consistent comparison and metric tracking across training and testing phases.
 
 
+### Per-Model Fine-Tuning
+
+#### Model Tuning and Selection Strategy
+
+I trained and evaluated six regression models:
+
+- Linear Regression  
+- Random Forest  
+- Gradient Boosting  
+- LightGBM  
+- XGBoost  
+- HistGradientBoosting  
+
+All models underwent baseline training and multi-stage hyperparameter tuning (Halving Search → Randomized Search → Grid Search).  
+However, to maintain clarity and focus in this report, I present **detailed analysis only for the top-performing models**, while briefly summarizing the rest in the comparison section.
 
 
+#### Selected Models for In-Depth Analysis
+
+Among all six trained models, three stood out in terms of both predictive accuracy and generalization performance:
+
+- **Gradient Boosting Regressor (GBR)** achieved the **highest R² (0.9764)** with very low RMSE and MAE.
+- **LightGBM (GridSearch)** matched GBR in performance while maintaining the smallest overfit gap.
+- **HistGradientBoosting (HistGB)** demonstrated **excellent generalization** with the **lowest overfit gap (0.0002)**.
+
+These models are selected for detailed interpretation in the following sections.
+
+While Gradient Boosting delivered the highest R² score (0.9764), **LightGBM achieved nearly identical performance** (R² = 0.9763, RMSE = 0.1536, MAE = 0.1008) with one key advantage: **speed**.
+
+- **Training Efficiency**: LightGBM uses a histogram-based algorithm and leaf-wise tree growth, making it **much faster** than traditional Gradient Boosting.
+- **Scalability**: It handles large datasets efficiently, making it suitable for real-world production environments.
+- **Overfitting Control**: The model maintained a low overfit gap (0.0008), demonstrating strong generalization.
+
+Given its balance of **accuracy, speed, and robustness**, LightGBM is a **top choice for deployment and further optimization**.
+
+### LightGBM Modeling Workflow
+
+### 1. Baseline Model — LightGBM Regressor
+
+A baseline LightGBM model was trained with default parameters to establish a performance reference. Despite no tuning, the model achieved strong R² and MAE scores, confirming LightGBM’s reliability on this dataset.
+
+- **Train R²**: 0.9764  **Test R²**: 0.9763  
+- **Test MAE**: 0.1011  **Test RMSE**: 0.1539  
+
+The following plot shows the model's predictions vs. actual selling prices:
+
+![Actual vs Predicted — LightGBM Baseline](../visualizations/LightGBM_Baseline_Actual_vs_Predicted.png)
+
+**Insight:**  
+Predictions align closely with actual values, clustering around the diagonal line. Minor deviations appear at extreme values but are acceptable at baseline.
 
 
+---
 
+### 2. Feature Importance — LightGBM Regressor
+
+Before hyperparameter tuning, a feature importance analysis was conducted to understand which features most strongly influence vehicle price prediction.
+
+![All Feature Importances (LightGBM)](../visualizations/LightGBM_Feature_Importance.png)
+
+**Insights:**
+
+- **mmr (Manheim Market Report)** is by far the most influential feature, confirming its role as a key pricing benchmark.
+- **condition**, **odometer**, and **year** also contribute significantly, aligning with expectations around vehicle quality, usage, and age.
+- **weekday**, **color (C_white)**, and **origin (Brand_Japan)** show minor impact but may still capture niche effects or trends.
+
+This analysis guided the refinement of the final feature set for tuning and final model training.
+
+---
+
+### 3. Hyperparameter Tuning — LightGBM Regressor
+
+**LightGBM Hyperparameter Tuning Strategy**
+
+To optimize the LightGBM model, I designed a **three-stage tuning strategy** to balance speed, accuracy, and model generalization. Each stage progressively refines the hyperparameters.
+
+#### 3.1 Hyperparameter Tuning — HalvingRandomSearchCV
+
+To improve the baseline LightGBM model, I first performed hyperparameter tuning using **HalvingRandomSearchCV** for a coarse-grained hyperparameter search, which offers an efficient way to explore hyperparameter space with fewer resources.
+
+This approach progressively narrows the search space by allocating more resources to promising configurations.
+
+```python
+lgb_halving_base_params = lgb_baseline_model.get_params()
+
+param_dist_lgb_halving = {
+    'max_depth': list(set([lgb_halving_base_params['max_depth'], 10, 20, -1])),
+    'num_leaves': sorted(list(set([lgb_halving_base_params['num_leaves'], 15, 63]))),
+    'min_child_samples': sorted(list(set([lgb_halving_base_params['min_child_samples'], 10, 30]))),
+    'learning_rate': sorted(list(set([lgb_halving_base_params['learning_rate'], 0.05, 0.01])))
+}
+
+**Evaluation Result:**
+
+| Metric        | Train        | Test         |
+|---------------|--------------|--------------|
+| R² Score      | 0.9767       | 0.9762       |
+| MSE           | 0.0234       | 0.0237       |
+| RMSE          | 0.1528       | 0.1539       |
+| MAE           | 0.1005       | 0.1011       |
+
+**Observation:**
+
+- Model performance is nearly identical to the baseline, but slightly improved in RMSE and MAE.
+- Overfitting remains minimal, confirming tuning stability.
+
+This version was used as the starting point for further fine-tuning using RandomizedSearchCV.
+
+#### 3.2 Hyperparameter Tuning — RandomizedSearchCV
+
+After identifying promising regions via Halving Search, I conducted a more refined search using **RandomizedSearchCV**. This strategy randomly samples parameter combinations from predefined distributions, offering a balance between search breadth and resource efficiency.
+
+```python
+lgb_random_base_params = lgb_halving_best_model.get_params()
+
+param_dist_random = {
+    'max_depth': list(set([lgb_random_base_params['max_depth'], 10, 20, -1])),
+    'num_leaves': sorted(list(set([lgb_random_base_params['num_leaves'], 15, 63]))),
+    'min_child_samples': sorted(list(set([lgb_random_base_params['min_child_samples'], 10, 30]))),
+    'learning_rate': sorted(list(set([lgb_random_base_params['learning_rate'], 0.01, 0.05, 0.1]))),
+    'n_estimators': randint(50, 300)
+}
+
+**Evaluation Result:**
+
+| Metric        | Train        | Test         |
+|---------------|--------------|--------------|
+| R² Score      | 0.9771       | 0.9763       |
+| MSE           | 0.0229       | 0.0236       |
+| RMSE          | 0.1514       | 0.1537       |
+| MAE           | 0.0997       | 0.1008       |
+
+**Observation:**
+
+- Slight improvement across all metrics, especially in MAE and MSE.
+- Excellent generalization with minimal overfitting.
+- Performance is now marginally better than both baseline and Halving models, supporting the effectiveness of this tuning stage.
+
+Next, I proceeded with a final fine-tuning using GridSearchCV to further optimize the parameters.
+
+#### 3.3 Hyperparameter Tuning — GridSearchCV
+
+To finalize the model, I performed an exhaustive search using **GridSearchCV**, building upon the best parameters obtained from the Randomized Search stage. This method tests all combinations within a tight parameter neighborhood to find the optimal configuration.
+
+```python
+lgb_grid_base_params = lgb_random_best_model.get_params()
+
+lgb_grid_param = {
+    'learning_rate': [lgb_grid_base_params['learning_rate'] * f for f in [0.8, 1.0, 1.2]],
+    'num_leaves': [
+        max(2, lgb_grid_base_params['num_leaves'] - 5),
+        lgb_grid_base_params['num_leaves'],
+        lgb_grid_base_params['num_leaves'] + 5
+    ],
+    'min_child_samples': [
+        max(1, lgb_grid_base_params['min_child_samples'] - 5),
+        lgb_grid_base_params['min_child_samples'],
+        lgb_grid_base_params['min_child_samples'] + 5
+    ]
+}
+
+**Tuning Highlights**
+
+- Focused grid constructed around the best randomized parameters.
+- Slightly adjusted **`learning_rate`** (±20%) to explore trade-offs between convergence speed and generalization.
+- Fine-tuned **`num_leaves`** and **`min_child_samples`** to balance model complexity and robustness.
+
+---
+
+** Performance Summary (GridSearchCV Result):**
+
+| Metric       | Value     |
+|--------------|-----------|
+| **Train R²**     | 0.977140  |
+| **Test R²**      | 0.976347  |
+| **Train RMSE**   | 0.151239  |
+| **Test RMSE**    | 0.153610  |
+| **Test MAE**     | 0.100805  |
+| **Overfit Gap**  | ~0.0008   |
+
+---
+
+This final tuning stage yielded the most balanced performance in terms of **accuracy** and **generalization**, confirming **LightGBM** as the best model for the task.
+
+### 4. Save and Restore
+
+To ensure reproducibility and avoid re-training:
+
+- The final model and tuning results were **saved using `joblib`**.
+- Reload tested and verified for consistency across sessions.
+
+---
+
+### 5. LightGBM Model Performance Comparison
+
+Compared tuned LightGBM against:
+
+- Baseline LightGBM
+- Gradient Boosting
+- XGBoost
+- Linear Regression, Random Forest, etc.
+
+**Result**: Tuned LightGBM performed nearly best overall, **with the smallest overfitting gap** and high test R² (0.9763).
+
+---
+
+### 6. Final Model Selection
+
+Selected **LightGBM (GridSearch-tuned)** as the final model for deployment and interpretation due to:
+
+- High accuracy
+- Low overfitting
+- Efficient training time
+
+---
+
+### 7. Feature Importance + Residual Analysis (LightGBM)
+
+Visualized:
+
+- **Feature Importance**: Confirmed MMR and odometer are key.
+- **Residual Plots**: No major pattern or bias detected — errors centered and stable.
+- **Prediction vs Actual Scatterplot**: Tight alignment confirmed model validity.
+
+---
+
+### 8. LightGBM Model Interpretation
+
+- **Business Interpretation**: The model appropriately emphasizes market (MMR), condition, usage (odometer), and brand cues (e.g., German brands).
+- **Practical Use**: Can be deployed in automated pricing engines or decision dashboards with confidence.
+
+---
 
 
 
