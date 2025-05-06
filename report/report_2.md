@@ -982,7 +982,7 @@ The following table and charts summarize the performance of the LightGBM model a
 ###### 2. Detailed Metric Breakdown
 > Individual metric bar charts for clearer inspection.
 
-![Detailed Metric Breakdown](../visualizations/lgbm_detailed20%metric.png)
+![Detailed Metric Breakdown](../visualizations/lgbm_detailed_metric.png)
 
 
 
@@ -1292,8 +1292,8 @@ To answer this question, I analyzed the feature importance from the top-performi
   Importance < 0.01%, minimal effect.  
   **Action:** Use for customer segmentation, not pricing logic.
 
-#### Feature Importance Chart (LightGBM GridSearch)
-![Feature Importance Chart (LightGBM GridSearch)](../visualizations/gbr_importance.png)
+#### Feature Importance Chart
+![Feature Importance Chart](../visualizations/gbr_importance.png)
 
 ---
 
