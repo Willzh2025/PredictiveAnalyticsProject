@@ -1026,34 +1026,63 @@ The most influential features identified by the LightGBM model are:
 
 **1. Residuals vs Predicted Values**  
 This plot helps us assess the model's error patterns. Ideally, residuals should be symmetrically distributed around zero without clear structure.  
-➡️ The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
+➡The plot below shows no major heteroscedasticity or trend, indicating well-distributed errors.
 
-![Residuals vs Predicted](Unknown-5.png)
+![Residuals vs Predicted](../visualizations/Residuals_vs_Predicted-5.png)
 
 ---
 
 **2. Residuals Distribution**  
 The histogram below shows the distribution of errors (actual - predicted).  
-➡️ The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
+➡The distribution is roughly centered at 0 and follows a bell shape, supporting the assumption of normal residuals.
 
-![Residual Histogram](Unknown-6.png)
+![Residual Histogram](Residual_Histogram.png)
 
 ---
 
 **3. Predicted vs Actual**  
 This scatter plot compares actual and predicted selling prices.  
-➡️ Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
+➡Most points align closely with the red diagonal line (perfect prediction), confirming model accuracy.
 
-![Predicted vs Actual](Unknown-7.png)
-
+![Predicted vs Actual](Predicted_vs_Actual.png)
 
 ---
 
 
-### 8. LightGBM Model Interpretation
+### 8. LightGBM Model Summary
 
-- **Business Interpretation**: The model appropriately emphasizes market (MMR), condition, usage (odometer), and brand cues (e.g., German brands).
-- **Practical Use**: Can be deployed in automated pricing engines or decision dashboards with confidence.
+**Feature Importance**
+The LightGBM model uses all 8 features, but **MMR** dominates the prediction:
+
+- **MMR importance is significantly higher** than all others (e.g., condition, odometer, year).
+- This indicates the model mostly learns from market-driven price signals embedded in MMR.
+
+> Heavy reliance on MMR increases risk if it’s outdated or missing. 
+
+
+**Prediction Accuracy**
+
+- **Test R²**: 0.9764  **RMSE**: 0.1534  **MAE**: 0.1008  
+- The **actual vs predicted** plot shows tight alignment along the diagonal.
+- Slight spread appears at the price extremes, but overall prediction fit is excellent.
+
+
+**Residual Analysis**
+
+- Residuals are **centered around zero**, with a **symmetric bell-shaped distribution**.
+- **No clear heteroscedasticity** or bias seen in residuals vs predicted plots.
+
+> Residuals suggest the model captures the data well, with only minor variance at the extremes.
+
+
+**Summary**
+
+| Strengths                          | Limitations                      |
+|-----------------------------------|----------------------------------|
+| High accuracy and generalization  | Strong reliance on MMR           |
+| Clean residual distribution        | Edge case predictions less stable |
+| All features contribute            | Interpretation limited by MMR dominance |
+
 
 ---
 
