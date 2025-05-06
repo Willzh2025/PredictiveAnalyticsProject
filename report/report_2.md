@@ -24,12 +24,17 @@ By leveraging supervised regression techniques, the project aims to identify the
 - **Assess model fairness and generalization** across key subgroups (e.g., SUVs vs. others, Japanese vs. non-Japanese brands), ensuring pricing models are reliable and unbiased.
 - **Provide data-driven recommendations** to support smarter pricing, inventory sourcing, and model deployment in real-world business settings.
 
-## Dataset Overview
+---
+
+## Introduction & Dataset Description
+
+In today’s used vehicle market, pricing strategies must be both dynamic and data-driven. Consumers seek fair prices while dealerships aim for profitability. To bridge this gap, predictive analytics can play a critical role in estimating fair market values of used cars. This project applies supervised machine learning techniques to a large-scale dataset of historical vehicle transactions to build a regression model that predicts used car selling prices based on a variety of features. The goal is to support used car dealerships in making informed pricing decisions and identifying patterns in consumer behavior.
+
+### Dataset Overview
 
 The dataset used in this project is the **"Vehicle Sales and Market Trends Dataset"**, originally published on [Kaggle](https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data/data). It contains detailed information on **558,837** used vehicle transactions, with **16 columns** describing each vehicle's specifications, condition, market benchmarks, and final selling price.
 
 This real-world dataset provides a strong foundation for building predictive machine learning models to estimate used car prices — a task of direct business relevance to auto dealers, resale platforms, and pricing analysts.
-
 
 ### Dataset Summary
 
@@ -193,9 +198,11 @@ These distributions provide important context for understanding the dataset comp
 
 ### Distribution of Key Numerical Features
 
+#### Distribution of Selling Price Odometer and Odometer
+
 - **Selling Price**: Right-skewed; most cars are priced between \$5,000 and \$20,000, with a long tail above \$100,000.
 - **Odometer**: Positively skewed; most vehicles have mileage under 100,000 miles, but some outliers exceed 900,000.
-- **MMR (Market Benchmark Price)**: Also right-skewed, with values typically between \$5,000 and \$25,000.
+- **Odometer (Market Benchmark Price)**: Also right-skewed, with values typically between \$5,000 and \$25,000.
 
 ![Distribution of Key Numerical Features](../visualizations/Distributions_of_sellingprice_odometer_and_mmr.png)
 
@@ -335,13 +342,7 @@ These distributions provide important context for understanding the dataset comp
 
 - Vehicle sales peaked around early 2015, indicating seasonal or market-driven patterns worth further business analysis.
 
-
-
-
-
-
-
-
+---
 
 ### Summary of EDA
 
@@ -355,6 +356,8 @@ My exploratory analysis revealed several key insights:
 
 These findings not only help shape our preprocessing and feature selection strategy, but also validate the dataset’s suitability for supervised learning and regression modeling.
 
+
+---
 
 
 
