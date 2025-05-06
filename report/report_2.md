@@ -801,7 +801,7 @@ Given its balance of **accuracy, speed, and robustness**, LightGBM is a **top ch
 
 ### LightGBM Modeling Workflow
 
-### 1. Baseline Model — LightGBM Regressor
+#### 1. Baseline Model — LightGBM Regressor
 
 A baseline LightGBM model was trained with default parameters to establish a performance reference. Despite no tuning, the model achieved strong R² and MAE scores, confirming LightGBM’s reliability on this dataset.
 
@@ -818,7 +818,7 @@ Predictions align closely with actual values, clustering around the diagonal lin
 
 ---
 
-### 2. Feature Importance — LightGBM Regressor
+#### 2. Feature Importance — LightGBM Regressor
 
 Before hyperparameter tuning, a feature importance analysis was conducted to understand which features most strongly influence vehicle price prediction.
 
@@ -834,13 +834,13 @@ This analysis guided the refinement of the final feature set for tuning and fina
 
 ---
 
-### 3. Hyperparameter Tuning — LightGBM Regressor
+#### 3. Hyperparameter Tuning — LightGBM Regressor
 
 **LightGBM Hyperparameter Tuning Strategy**
 
 To optimize the LightGBM model, I designed a **three-stage tuning strategy** to balance speed, accuracy, and model generalization. Each stage progressively refines the hyperparameters.
 
-#### 3.1 Hyperparameter Tuning — HalvingRandomSearchCV
+##### 3.1 Hyperparameter Tuning — HalvingRandomSearchCV
 
 To improve the baseline LightGBM model, I first performed hyperparameter tuning using **HalvingRandomSearchCV** for a coarse-grained hyperparameter search, which offers an efficient way to explore hyperparameter space with fewer resources.
 
@@ -855,7 +855,7 @@ param_dist_lgb_halving = {
     'min_child_samples': sorted(list(set([lgb_halving_base_params['min_child_samples'], 10, 30]))),
     'learning_rate': sorted(list(set([lgb_halving_base_params['learning_rate'], 0.05, 0.01])))
 }
-
+```
 **Evaluation Result:**
 
 | Metric        | Train        | Test         |
@@ -872,7 +872,7 @@ param_dist_lgb_halving = {
 
 This version was used as the starting point for further fine-tuning using RandomizedSearchCV.
 
-#### 3.2 Hyperparameter Tuning — RandomizedSearchCV
+##### 3.2 Hyperparameter Tuning — RandomizedSearchCV
 
 After identifying promising regions via Halving Search, I conducted a more refined search using **RandomizedSearchCV**. This strategy randomly samples parameter combinations from predefined distributions, offering a balance between search breadth and resource efficiency.
 
@@ -886,6 +886,7 @@ param_dist_random = {
     'learning_rate': sorted(list(set([lgb_random_base_params['learning_rate'], 0.01, 0.05, 0.1]))),
     'n_estimators': randint(50, 300)
 }
+```
 
 **Evaluation Result:**
 
@@ -904,7 +905,7 @@ param_dist_random = {
 
 Next, I proceeded with a final fine-tuning using GridSearchCV to further optimize the parameters.
 
-#### 3.3 Hyperparameter Tuning — GridSearchCV
+##### 3.3 Hyperparameter Tuning — GridSearchCV
 
 To finalize the model, I performed an exhaustive search using **GridSearchCV**, building upon the best parameters obtained from the Randomized Search stage. This method tests all combinations within a tight parameter neighborhood to find the optimal configuration.
 
@@ -924,6 +925,7 @@ lgb_grid_param = {
         lgb_grid_base_params['min_child_samples'] + 5
     ]
 }
+```
 
 **Tuning Highlights**
 
@@ -948,7 +950,7 @@ lgb_grid_param = {
 
 This final tuning stage yielded the most balanced performance in terms of **accuracy** and **generalization**, confirming **LightGBM** as the best model for the task.
 
-### 4. Save and Restore
+#### 4. Save and Restore
 
 To ensure reproducibility and avoid re-training:
 
@@ -957,7 +959,7 @@ To ensure reproducibility and avoid re-training:
 
 ---
 
-### 5. LightGBM Model Performance Summary
+#### 5. LightGBM Model Performance Summary
 
 The following table and charts summarize the performance of the LightGBM model across four stages: **Baseline**, **Halving Random Search**, **Randomized Search**, and **Grid Search**.
 
@@ -970,14 +972,14 @@ The following table and charts summarize the performance of the LightGBM model a
 
 ---
 
-#### Visual Comparison
+##### Visual Comparison
 
-##### 1. Model Comparison Summary (Test Set)
+###### 1. Model Comparison Summary (Test Set)
 > Combined comparison of R², RMSE, and MAE across models.
 
 ![Model Comparison Summary](../visualizations/lgbm_comparison_summary.png)
 
-##### 2. Detailed Metric Breakdown
+###### 2. Detailed Metric Breakdown
 > Individual metric bar charts for clearer inspection.
 
 ![Model Comparison Summary](../visualizations/lgbm_detailed metric.png)
@@ -985,7 +987,7 @@ The following table and charts summarize the performance of the LightGBM model a
 
 ---
 
-#### LightGBM Insight Summary
+##### LightGBM Insight Summary
 
 - All models performed very similarly with **Test R² > 0.976**, showing strong generalization.
 - **GridSearchCV** had the lowest overall errors and provided the most balanced result.
@@ -994,7 +996,7 @@ The following table and charts summarize the performance of the LightGBM model a
 
 ---
 
-### 6. Final Model Selection
+#### 6. Final Model Selection
 
 Selected **LightGBM (GridSearch-tuned)** as the final model for deployment and interpretation due to:
 
@@ -1004,11 +1006,11 @@ Selected **LightGBM (GridSearch-tuned)** as the final model for deployment and i
 
 ---
 
-### 7. LightGBM Final Model Analysis
+#### 7. LightGBM Final Model Analysis
 
 After baseline modeling and three rounds of hyperparameter tuning, the final LightGBM model (GridSearchCV) demonstrated the best balance between performance and generalization.
 
-#### Feature Importance
+##### Feature Importance
 
 The most influential features identified by the LightGBM model are:
 
@@ -1022,7 +1024,7 @@ The most influential features identified by the LightGBM model are:
 
 ---
 
-#### Residual Analysis
+##### Residual Analysis
 
 **1. Residuals vs Predicted Values**  
 This plot helps us assess the model's error patterns. Ideally, residuals should be symmetrically distributed around zero without clear structure.  
@@ -1049,7 +1051,7 @@ This scatter plot compares actual and predicted selling prices.
 ---
 
 
-### 8. LightGBM Model Summary
+#### 8. LightGBM Model Summary
 
 **Feature Importance**
 The LightGBM model uses all 8 features, but **MMR** dominates the prediction:
@@ -1086,56 +1088,309 @@ The LightGBM model uses all 8 features, but **MMR** dominates the prediction:
 
 ---
 
+### Other Models and Optimization Strategy
+
+---
+
+In addition to LightGBM, I applied the **same structured hyperparameter tuning process** to five other regression models:
+
+- **XGBoost Regressor**
+- **Gradient Boosting Regressor**
+- **Random Forest Regressor**
+- **Histogram-based Gradient Boosting (HistGB)**
+- **Linear Regression (used as a baseline reference)**
+
+For each model, the following three-stage tuning pipeline was used:
+
+1. **Baseline Model Training**
+   - Initial model using default parameters or minimal custom setup.
+   - Served as a performance benchmark.
+
+2. **Halving Random Search**
+   - Narrowed down promising hyperparameter ranges with resource-efficient randomized search.
+   - Used `HalvingRandomSearchCV` to explore combinations while minimizing overfitting.
+
+3. **RandomizedSearchCV**
+   - Performed wider exploration using randomized parameter sampling.
+   - Helped identify non-obvious combinations and improve generalization.
+
+4. **GridSearchCV**
+   - Fine-tuned around the best-performing parameter sets from RandomizedSearchCV.
+   - Applied smaller, precise grids to maximize model accuracy.
+
+This consistent tuning strategy ensured that all models were **fairly optimized and comparable**.  
+Ultimately, LightGBM was selected as the primary model due to its **strong performance**, **speed**, and **interpretability**.
+
+---
+
+### Comparison of Other Tuned Models
+
+While the LightGBM model was selected as the final best performer, **all six models** (Linear Regression, Random Forest, Gradient Boosting, HistGradientBoosting, XGBoost, and LightGBM) underwent the **same three-stage tuning process**:
+
+1. **Baseline Model**  
+   Each model was first trained using default or minimal configuration to establish a baseline.
+
+2. **Stage 1: Halving Random Search (or equivalent)**  
+   A broad hyperparameter search was used to quickly narrow down promising regions of the hyperparameter space.
+
+3. **Stage 2: RandomizedSearchCV**  
+   Random search was then applied based on the results of halving to explore a more refined space.
+
+4. **Stage 3: GridSearchCV**  
+   A focused grid search was performed around the best random configuration to fine-tune the model further.
+
+#### Evaluation Metrics of Best Models per Type
+
+| Model                      | Test R² | Test RMSE | Test MAE | Overfit Gap |
+|---------------------------|---------|-----------|----------|--------------|
+| Gradient Boosting Random  | 0.97640 | 0.15345   | 0.10075  | 0.00089      |
+| LightGBM GridSearch       | 0.97635 | 0.15361   | 0.10081  | 0.00079      |
+| HistGB GridSearch         | 0.97628 | 0.15383   | 0.10117  | 0.00015      |
+| XGBoost Randomized        | 0.97616 | 0.15423   | 0.10144  | 0.00026      |
+| Random Forest (rf2)       | 0.97542 | 0.15658   | 0.10256  | 0.00104      |
+| Linear Regression         | 0.97468 | 0.15894   | 0.10481  | -0.00012     |
+
+#### Visual Comparisons
+
+- **Train vs Test R² and Overfit Gap**
+
+![Train vs Test R2 and Overfit Gap](../visualizations/train_vs_test_r2.png)
+
+- **Metric Breakdown by Model (Test R², MSE, RMSE, MAE)**
+
+![Horizontal Test Metric Comparison](../visualizations/test_metrics_horizontal.png)
+
+- **Grouped Metric Comparison by Model Type**
+
+![Grouped Metric Comparison](../visualizations/test_metrics_by_model_grouped.png)
+
+---
 
 
+#### Model Comparison Summary: Feature Importance & Residual Analysis (Top 3 Models)
 
+This section presents a detailed comparison of the **top 3 performing models** based on their test set accuracy, residual behavior, and feature importance profiles. All models were tuned using multi-stage hyperparameter optimization (Halving → Randomized → GridSearch where applicable).
 
+---
 
+#### Top 1 Model: Gradient Boosting (Random Search)
 
+**Performance**
+- **Test R²**: 0.9764  **RMSE**: ~0.1534  **MAE**: ~0.1008  
+- Best overall accuracy with minimal overfitting (**Gap** ≈ 0.0009)
 
+**Feature Importance**
+- `mmr` dominates the prediction with almost **100% importance**
+- Other variables (e.g., `condition`, `odometer`) contribute insignificantly  
+![Gradient Boosting Importance](../visualizations/gbr_importance.png)
 
+**Residual Analysis**
+- Centered, tight residual distribution
+- QQ plot shows heavy tails → **not normally distributed**
+- Minor heteroscedasticity appears at value extremes  
+![Gradient Boosting Residuals](../visualizations/gbr_residuals.png)
 
+---
 
+#### Top 2 Model: LightGBM (Grid Search)
 
+**Performance**
+- **Test R²**: 0.9763  **RMSE**: ~0.1536  **MAE**: ~0.1008  
+- Nearly tied with Top 1, with slightly lower overfit gap (**Gap** ≈ 0.0008)
 
+**Feature Importance**
+- `mmr` still leads, but `odometer`, `condition`, and `year` have relatively greater importance  
+![LightGBM Importance](../visualizations/LightGBM_Importance.png)
 
-### 1. Variable Distributions
+**Residual Analysis**
+- Bell-shaped residual distribution, slightly **right-skewed**
+- QQ plot shows moderate deviation in tails (non-normality confirmed)
+- Slight heteroscedasticity, especially at `mmr` extremes  
+![LightGBM Residuals](../visualizations/LightGBM_Residuals.png)
 
-- **Vehicle Year**: Most vehicles are manufactured between 2007 and 2015, with a peak around 2012.
-- **Condition**: While condition is numeric, it's not a typical 1–5 scale; values range widely, suggesting different rating schemes from various sellers.
-- **Odometer**: Positively skewed; many vehicles cluster under 100,000 miles, but some outliers reach nearly 1,000,000 miles.
-- **Selling Price**: Right-skewed distribution; majority of cars sold between \$5,000 and \$20,000, but luxury vehicles can exceed \$100,000.
+---
 
-> 📊 *Included plots: histograms for year, condition, odometer, and sellingprice.*
+#### Top 3 Model: HistGradientBoosting (Grid Search)
+
+**Performance**
+- **Test R²**: 0.9763  **RMSE**: ~0.1538  **MAE**: ~0.1012  
+- Slightly higher errors than Top 1 & 2, but **lowest overfit gap** (~0.00015)
+
+**Feature Importance**
+- `mmr` permutation importance = **1.79**, others < **0.03** → confirms **extreme reliance** on `mmr`  
+![HistGB Importance](../visualizations/hgb_importance.png)
+
+**Residual Analysis**
+- Distribution consistent with others: narrow, centered, **non-normal**
+- Slight trend observed when plotting residuals against `mmr`  
+![HistGB Residuals](../visualizations/hgb_residuals.png)
 
 
 ---
 
-### 4. Missing Data Analysis
 
-- **Transmission**: ~11% missing
-- **Condition**: ~2% missing
-- **Body/Trim/Model**: Some inconsistencies and null values exist but affect <5% of entries
+#### Summary Insights
 
-> ✅ Missing values handled later during preprocessing via imputation or removal.
+- **Gradient Boosting (Random)** achieved the highest Test R² (0.9764) with balanced error metrics, making it a strong contender.
+- **LightGBM (GridSearch)** had the smallest overall RMSE and MAE values, confirming its stable performance.
+- **HistGradientBoosting** had the smallest overfitting gap (~0.00015), suggesting excellent generalization.
+- All ensemble-based models outperformed linear regression significantly.
+- Linear Regression had the lowest R² and highest errors, showing limited flexibility for this non-linear task.
+
+Thus, while multiple models achieved similar performance, LightGBM stood out for its training efficiency, interpretability, and overall robustness.
+
+| Metric              | Top 1: GB-Random | Top 2: LGBM-Grid | Top 3: HistGB-Grid |
+|---------------------|------------------|------------------|---------------------|
+| Test R²             | 0.9764           | 0.9763           | 0.9763              |
+| Test RMSE           | ~0.1534          | ~0.1536          | ~0.1538             |
+| Test MAE            | ~0.1008          | ~0.1008          | ~0.1012             |
+| Overfit Gap         | ~0.0009          | ~0.0008          | ~0.00015            |
+| MMR Dominance       | >99%             | High, but less   | Extreme (1.79 vs <0.03) |
 
 ---
 
-### 5. Outlier Detection
+#### Final Note
 
-- **MMR, Selling Price, and Odometer** contain extreme values (e.g., prices over \$200,000; odometers close to 1,000,000).
-- Outliers detected using IQR and capped at 1st–99th percentile range to reduce skew without removing rows.
+While all three models perform exceptionally well, their heavy **dependence on `mmr`** introduces potential risk in real-world scenarios — especially if the `mmr` signal is delayed, noisy, or unavailable.
 
-> 📦 *Visuals: boxplots and before/after capping distributions.*
+**Recommendation:** Consider using techniques like:
+- **SHAP values** for transparent explanation,
+- **Feature re-weighting** or engineering,
+- **Ensemble blending** to reduce single-feature bias.
+
+This can help improve fairness, generalization, and interpretability across different vehicle types and conditions.
+
+
+## Insights and Business Question Answers
 
 ---
 
-### Summary of Key Findings
+### Business Question 1: Which factors most significantly influence the selling price of used vehicles?
 
-- The dataset is rich, but contains noise and outliers, which need careful preprocessing.
-- MMR, odometer, and condition are strong predictors for price.
-- Sedans and SUVs dominate the market, with SUVs commanding higher average prices.
-- Japanese brands tend to show more consistent pricing behavior.
+To answer this question, I analyzed the feature importance from the top-performing predictive model. The results clearly show that the **MMR (Manheim Market Report)** value dominates, accounting for over **99%** of the model’s predictive power.
+
+#### Key Insights:
+
+- **MMR Value (Importance ≈ 99.26%)**  
+  The strongest pricing signal. Vehicles tend to sell close to their MMR value, confirming it as the most reliable benchmark.  
+  **Action:** Use MMR as the primary pricing anchor.
+
+- **Vehicle Condition (Importance ≈ 0.55%)**  
+  Slight influence after accounting for MMR.  
+  **Action:** Only invest in repairs if MMR already signals strong resale potential.
+
+- **Odometer (Importance ≈ 0.10%)**  
+  Lower mileage helps marginally.  
+  **Action:** Consider when sourcing vehicles, but don’t overweigh in pricing.
+
+- **Vehicle Year (Importance ≈ 0.06%)**  
+  Newer cars get slightly better prices.  
+  **Action:** Age supports marketing, not price-setting.
+
+- **Other Factors (Color, Brand, Body Type)**  
+  Importance < 0.01%, minimal effect.  
+  **Action:** Use for customer segmentation, not pricing logic.
+
+#### Feature Importance Chart (LightGBM GridSearch)
+![GBR Feature Importance](../visualizations/gbr_importance.png)
+
+---
+
+### Business Question 2: How accurately can the selling price of a vehicle be predicted based on its features?
+
+The best model, **Gradient Boosting (Random Search)**, achieved:
+
+- **Test R²:** 0.9764  
+- **Test RMSE:** ≈ 0.1534  
+- **Test MAE:** ≈ 0.1008
+
+Other top models (LightGBM, HistGradientBoosting) also delivered **Test R² > 0.976**, with minimal overfitting (gaps < 0.001), showing strong generalization across different vehicles and conditions.
+
+#### Metric Comparison for Top 3 Models
+![Top 3 Metric Comparison](../visualizations/Top_3_Models_Metric_Comparison.png)
+
+#### Conclusion:
+Ensemble-based models like **GBR, LGBM, HGB** capture complex feature relationships and outperform simpler models. They provide highly accurate price predictions and are robust across diverse vehicle types.
+
+---
+
+### Business Question 3:
+**How well does the predictive model generalize across different vehicle categories or brands? Are there specific subgroups where prediction accuracy significantly improves or deteriorates?**
+
+To assess how the model performs across subgroups, I compared residual patterns and evaluation metrics between different **vehicle categories** and **brand origins** using the top model (Gradient Boosting Random). The subgroup analysis includes residual distributions, absolute residual density, and performance metrics (R², MAE).
 
 
+#### Overall Model Generalization:
+- The model performs consistently across both **SUVs/Crossovers** and **Other vehicles**, with no drastic accuracy drops.
+- Similarly, predictions generalize well across **Japanese brands** and **Other brands**.
+- R² values remain high (> 0.97) across all subgroups, and MAE stays consistently low.
 
+#### By Vehicle Category:
+- Slightly higher error variability is observed for SUVs/Crossovers.
+- Boxplots and density plots show more outliers and heavier tails in the SUV/Crossover group.
+- **MAE:**  
+  - Other: ~0.10  
+  - SUVs and Crossovers: ~0.11  
+- **R² remains > 0.975** in both groups.
+
+#### By Brand Origin:
+- Performance is nearly identical between **Japanese** and **Other brands**.
+- Residual spread and error distribution are symmetric and tightly clustered in both groups.
+- **MAE:**  
+  - Japanese Brand: ~0.10  
+  - Other: ~0.10  
+- **R² > 0.976** in both cases.
+
+---
+
+#### Top 10 Largest Residuals (Potential Outliers):
+
+| Index   | Actual   | Predicted | Residual | Abs_Residual | Category_Label       |
+|---------|----------|-----------|----------|---------------|-----------------------|
+| 336293  | 3.468793 | 0.667468  | 2.801325 | 2.801325      | Other                |
+| 185873  | 3.171805 | 0.423504  | 2.748301 | 2.748301      | Other                |
+| 335583  | 2.178038 | -0.540452 | 2.718490 | 2.718490      | Other                |
+| 324364  | 3.468793 | 0.784143  | 2.684650 | 2.684650      | Other                |
+| 327905  | 2.269419 | -0.368445 | 2.637864 | 2.637864      | Other                |
+| 43839   | 2.606386 | 0.094988  | 2.511398 | 2.511398      | Other                |
+| 25337   | 0.207639 | 2.709736  | -2.502096| 2.502096      | SUVs and Crossovers |
+| 344696  | 1.835360 | -0.450061 | 2.285422 | 2.285422      | Other                |
+| 21404   | 2.714901 | 0.431136  | 2.283765 | 2.283765      | Other                |
+| 157423  | -1.397237| 0.809913  | -2.207150| 2.207150      | SUVs and Crossovers |
+
+> Most extreme outliers fall into the "Other" category, though **SUVs and Crossovers** also show two major mispredictions. This reinforces the need for cautious use in edge cases.
+
+---
+
+#### Residual Analysis by Subgroup:
+
+![Subgroup Residual Comparison](../visualizations/Subgroup_Residual_Comparison.png)
+
+**Figure:** This dashboard summarizes:
+- Residuals vs Predicted (colored by category)
+- Density plot of absolute residuals
+- Boxplots by category and brand
+- Group-wise MAE and R² with sample sizes annotated
+
+---
+
+#### Conclusion:
+
+The model demonstrates **strong generalization ability** across subgroups. While **SUVs and Crossovers** tend to have **slightly larger residuals**, the prediction performance remains robust across all vehicle categories and brand types.
+
+> Further improvements may target rare subgroups and outliers using tailored model ensembles or stratified training.
+
+---
+
+## 7. Ethics and Interpretability Reflection
+
+In this project, I predicted used car prices using a clean and well-structured dataset that does **not** contain personally identifiable or sensitive attributes—such as ZIP code, income, or user ID. This naturally reduces the risk of introducing bias toward specific individuals or groups.
+
+During preprocessing, I filled in missing values for features like `make` and `transmission` and capped extreme values in `mmr`, `odometer`, and `sellingprice`. These steps helped stabilize the model but may also mask rare but meaningful pricing cases—such as those involving luxury or niche vehicles.
+
+One important observation was the model’s **heavy reliance on the `mmr` variable**, which accounts for **over 99%** of the predictive importance. While `mmr` is a widely used industry reference, this strong dependence raises two concerns:
+
+- **Fairness**: `mmr` is based on historical sales data and may reflect market-level biases (e.g., underpricing for certain brands or regions).
+- **Transparency**: With such dominance, the model pays little attention to other meaningful features like mileage, condition, or vehicle age—making it harder to interpret or justify the predictions.
+
+**For future improvement**, I would explore ways to reduce over-reliance on `mmr` and encourage the model to incorporate a broader range of features—especially when predicting prices for newer or less common vehicles.
