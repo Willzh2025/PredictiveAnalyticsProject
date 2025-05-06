@@ -1431,7 +1431,7 @@ One important observation was the model’s **heavy reliance on the `mmr` variab
 
 #### 3. Model Comparison
 - Metric Comparison (Top 3 Models)  
-  ![Top Models Metrics](../visualizations/top3_model_comparison.png)
+  ![Top Models Metrics](../visualizations/Top_3_Models_Metric_Comparison.png.png)
 
 #### 4. Outlier Analysis
 **Top 10 Largest Residuals:**
